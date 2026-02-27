@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumen de Reunion — 27 Feb, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --navy: #1a2744;
+    --navy-light: #243352;
+    --navy-dark: #111b30;
+    --gold: #C9A84C;
+    --gold-light: #e0c872;
+    --gold-muted: rgba(201,168,76,0.15);
+    --bg: #0f1923;
+    --card: #1a2744;
+    --card-hover: #1f2f50;
+    --text: #e8e8e8;
+    --text-muted: #94a3b8;
+    --green: #34d399;
+    --red: #f87171;
+    --orange: #fb923c;
+    --blue: #60a5fa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-light) 100%);
+    padding: 60px 40px 50px;
+    border-bottom: 3px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-label {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy-dark);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub { color: var(--text-muted); font-size: 16px; margin-bottom: 28px; }
+
+  .meta-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .meta-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(201,168,76,0.15);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .participants {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .participant {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .participant:hover { background: rgba(201,168,76,0.1); border-color: var(--gold); }
+  .participant-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--navy-dark);
+  }
+  .av-poler { background: var(--gold); }
+  .av-emuna { background: var(--green); }
+  .av-house { background: var(--blue); }
+  .participant-info strong { display: block; color: #fff; font-size: 14px; }
+  .participant-info span { color: var(--text-muted); font-size: 12px; }
+
+  /* ── NAVIGATION TABS ── */
+  .nav-bar {
+    background: var(--navy-dark);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 0 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+  .nav-tab {
+    padding: 16px 24px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .nav-tab:hover { color: var(--gold-light); }
+  .nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ── MAIN CONTENT ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 40px; }
+
+  /* ── KEY TAKEAWAYS ── */
+  .takeaways {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .takeaway-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 24px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .takeaway-card:hover { transform: translateY(-2px); border-color: var(--gold); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+  .takeaway-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+  }
+  .tc-gold::before { background: var(--gold); }
+  .tc-green::before { background: var(--green); }
+  .tc-blue::before { background: var(--blue); }
+  .tc-orange::before { background: var(--orange); }
+  .tc-red::before { background: var(--red); }
+
+  .tc-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .tc-gold .tc-number { background: rgba(201,168,76,0.2); color: var(--gold); }
+  .tc-green .tc-number { background: rgba(52,211,153,0.2); color: var(--green); }
+  .tc-blue .tc-number { background: rgba(96,165,250,0.2); color: var(--blue); }
+  .tc-orange .tc-number { background: rgba(251,146,60,0.2); color: var(--orange); }
+  .tc-red .tc-number { background: rgba(248,113,113,0.2); color: var(--red); }
+
+  .tc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .tc-text { font-size: 14px; color: var(--text-muted); line-height: 1.55; }
+
+  /* ── SECTION HEADERS ── */
+  .section { margin-bottom: 48px; scroll-margin-top: 70px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .section-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .si-gold { background: rgba(201,168,76,0.15); }
+  .si-green { background: rgba(52,211,153,0.15); }
+  .si-blue { background: rgba(96,165,250,0.15); }
+  .si-orange { background: rgba(251,146,60,0.15); }
+  .si-red { background: rgba(248,113,113,0.15); }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .section-time {
+    font-size: 12px;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.06);
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  /* ── CONTENT CARDS ── */
+  .content-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+  .content-card h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .content-card ul { list-style: none; padding: 0; }
+  .content-card li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .content-card li:last-child { border-bottom: none; }
+  .content-card li::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 16px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+  .content-card li strong { color: #fff; font-weight: 500; }
+  .content-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 12px; }
+
+  /* ── DEAL CARDS ── */
+  .deal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .deal-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .deal-card.featured {
+    border-color: var(--gold);
+    box-shadow: 0 0 30px rgba(201,168,76,0.1);
+  }
+  .deal-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  .badge-hot { background: rgba(248,113,113,0.2); color: var(--red); }
+  .badge-review { background: rgba(251,146,60,0.2); color: var(--orange); }
+  .badge-off { background: rgba(96,165,250,0.2); color: var(--blue); }
+
+  .deal-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .deal-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .deal-stat {
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .deal-stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .deal-stat-value { font-size: 18px; font-weight: 700; color: #fff; }
+  .deal-stat-value.green { color: var(--green); }
+  .deal-stat-value.gold { color: var(--gold); }
+
+  .deal-notes { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .deal-notes strong { color: #fff; }
+
+  /* ── WATERFALL VISUAL ── */
+  .waterfall {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+  .waterfall h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .waterfall-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .waterfall-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    width: 220px;
+    flex-shrink: 0;
+  }
+  .waterfall-bar-wrap {
+    flex: 1;
+    height: 36px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+  }
+  .waterfall-bar-investor {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy-dark);
+  }
+  .waterfall-bar-sponsor {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .waterfall-arrow {
+    text-align: center;
+    color: var(--gold);
+    font-size: 20px;
+    margin: 8px 0;
+  }
+
+  /* ── NUMBERED STEPS ── */
+  .steps { counter-reset: step; }
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    counter-increment: step;
+  }
+  .step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.15);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .step-content { flex: 1; }
+  .step-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .step-text { font-size: 14px; color: var(--text-muted); line-height: 1.55; }
+
+  /* ── ISSUES LIST ── */
+  .issues-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 12px;
+  }
+  .issue-item {
+    background: rgba(248,113,113,0.06);
+    border: 1px solid rgba(248,113,113,0.15);
+    border-radius: 10px;
+    padding: 16px 16px 16px 44px;
+    font-size: 14px;
+    color: var(--text-muted);
+    position: relative;
+    line-height: 1.5;
+  }
+  .issue-item::before {
+    content: '!';
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(248,113,113,0.2);
+    color: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .issue-item strong { color: var(--red); font-weight: 600; }
+
+  /* ── SOFTWARE IMPROVEMENTS ── */
+  .improvements {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .improvement-item {
+    background: rgba(96,165,250,0.06);
+    border: 1px solid rgba(96,165,250,0.12);
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .improvement-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: rgba(96,165,250,0.2);
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── ACTION ITEMS ── */
+  .actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .action-item {
+    background: rgba(52,211,153,0.06);
+    border: 1px solid rgba(52,211,153,0.15);
+    border-radius: 10px;
+    padding: 16px 16px 16px 44px;
+    font-size: 14px;
+    color: var(--text-muted);
+    position: relative;
+    line-height: 1.5;
+  }
+  .action-item::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 18px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--green);
+    border-radius: 4px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { padding: 36px 20px 30px; }
+    .hero h1 { font-size: 28px; }
+    .container { padding: 24px 16px; }
+    .nav-bar { padding: 0 16px; }
+    .nav-tab { padding: 14px 16px; font-size: 12px; }
+    .deal-grid, .takeaways { grid-template-columns: 1fr; }
+    .meta-row { gap: 16px; }
+    .participants { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Resumen de Reunion</div>
+    <h1>InvestorOS <span>Sesion Estrategica</span></h1>
+    <p class="hero-sub">Revision del Lot Analyzer, Analisis de Deals y Estrategia de Monetizacion</p>
+
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-icon">&#128197;</div>
+        <div><strong style="color:#fff">27 de Febrero, 2026</strong></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-icon">&#9201;</div>
+        <div><strong style="color:#fff">~88 minutos</strong></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-icon">&#128205;</div>
+        <div><strong style="color:#fff">Presencial</strong></div>
+      </div>
+    </div>
+
+    <div class="participants">
+      <div class="participant">
+        <div class="participant-avatar av-poler">DP</div>
+        <div class="participant-info">
+          <strong>Dylan Poler</strong>
+          <span>The Poler Team &middot; M&A Lead Gen</span>
+        </div>
+      </div>
+      <div class="participant">
+        <div class="participant-avatar av-poler">KP</div>
+        <div class="participant-info">
+          <strong>Kevin Poler</strong>
+          <span>The Poler Team &middot; Bienes Raices Comerciales</span>
+        </div>
+      </div>
+      <div class="participant">
+        <div class="participant-avatar av-poler">NP</div>
+        <div class="participant-info">
+          <strong>Noel Poler</strong>
+          <span>The Poler Team &middot; Consultoria</span>
+        </div>
+      </div>
+      <div class="participant">
+        <div class="participant-avatar av-emuna">MB</div>
+        <div class="participant-info">
+          <strong>Miguel Bubis</strong>
+          <span>Emuna &middot; Contratista e Inversionista</span>
+        </div>
+      </div>
+      <div class="participant">
+        <div class="participant-avatar av-house">AH</div>
+        <div class="participant-info">
+          <strong>Andres Hausmann</strong>
+          <span>Housemann House &middot; Arquitecto</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <a class="nav-tab active" href="#takeaways">Puntos Clave</a>
+    <a class="nav-tab" href="#software">Software</a>
+    <a class="nav-tab" href="#monetization">Monetizacion</a>
+    <a class="nav-tab" href="#deals">Analisis de Deals</a>
+    <a class="nav-tab" href="#commercial">RE Comercial</a>
+    <a class="nav-tab" href="#next-steps">Proximos Pasos</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ═══════════════════ PUNTOS CLAVE ═══════════════════ -->
+<section class="section" id="takeaways">
+  <div class="section-header">
+    <div class="section-icon si-gold">&#127919;</div>
+    <div class="section-title">Puntos Clave</div>
+  </div>
+
+  <div class="takeaways">
+    <div class="takeaway-card tc-gold">
+      <div class="tc-number">1</div>
+      <div class="tc-title">Software Fuerte, Necesita Pulir</div>
+      <div class="tc-text">Los calculos de IRR necesitan total transparencia, los comparables necesitan contexto, los limites de lotes necesitan claridad, y los sliders necesitan rangos mas amplios para mercados de lujo.</div>
+    </div>
+    <div class="takeaway-card tc-green">
+      <div class="tc-number">2</div>
+      <div class="tc-title">No Vender como SaaS &mdash; Levantar Capital</div>
+      <div class="tc-text">Usar el software para generar portales de inversion para ofertas basadas en proyectos. Aceptar inversiones en stablecoins. Necesitamos marco legal (acuerdos operativos, cumplimiento SEC, KYC).</div>
+    </div>
+    <div class="takeaway-card tc-red">
+      <div class="tc-number">3</div>
+      <div class="tc-title">Bay Point es la Prioridad</div>
+      <div class="tc-text">4403 Palm Lane &mdash; precio de $11M, fuerte potencial de IRR, el equipo necesita levantar $5M y asegurar la propiedad rapidamente. 88 dias en el mercado.</div>
+    </div>
+    <div class="takeaway-card tc-blue">
+      <div class="tc-number">4</div>
+      <div class="tc-title">Pivote a RE Comercial</div>
+      <div class="tc-text">Comprar strip malls en distress, mejorar calidad de inquilinos (credit tenants), refinanciar para devolver equity. Estructura waterfall 85/15 &rarr; 70/30.</div>
+    </div>
+    <div class="takeaway-card tc-orange">
+      <div class="tc-number">5</div>
+      <div class="tc-title">Proximos Pasos Inmediatos</div>
+      <div class="tc-text">Generar presentacion para inversionistas, conectar con abogados para documentos de oferta, llamar inversionistas brasilenos, detallar calculos de IRR este fin de semana, y construir funcion de exportar en el software.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SOFTWARE ═══════════════════ -->
+<section class="section" id="software">
+  <div class="section-header">
+    <div class="section-icon si-gold">&#128187;</div>
+    <div class="section-title">Revision del Lot Analyzer</div>
+    <span class="section-time">0:00 &ndash; 15:00</span>
+  </div>
+
+  <div class="content-card">
+    <h4>&#128172; Feedback Clave de Miguel</h4>
+    <ul>
+      <li>El sistema necesita <strong>desglosar claramente los $14.1M</strong> (terreno + construccion + fees)</li>
+      <li>Clarificar si los costos son <strong>antes o despues de la venta</strong>, y si incluyen closing costs/comision del realtor</li>
+      <li>El calculo del IRR debe incluir transparentemente <strong>TODOS los costos</strong> incluyendo closing costs y comision del realtor en la salida (~6%)</li>
+      <li>Resultado critico: <strong>"Si quieres un 30% de IRR, compra el terreno a X precio"</strong></li>
+      <li>Para cada parcela (on u off market), mostrar el <strong>precio maximo para alcanzar el IRR objetivo</strong></li>
+      <li>Necesita <strong>comparables de lotes junto al analisis</strong> &mdash; si el sistema dice comprar a $3.3M pero lotes cercanos se vendieron mas caro, es una bandera roja</li>
+      <li>Metrica de comparacion: <strong>"El precio de venta esta X% por encima de tu objetivo de 20% IRR"</strong> &mdash; verde = adelante, rojo = skip</li>
+    </ul>
+  </div>
+
+  <div class="content-card">
+    <h4>&#9889; Vision de Automatizacion de Dylan</h4>
+    <ul>
+      <li>Construyo un <strong>agente de llamadas</strong> (11 Labs) para automatizar contacto con duenos de lotes</li>
+      <li>El sistema extrae informacion de contacto de duenos desde <strong>Crexie y Apollo</strong></li>
+      <li>Alertas automaticas cuando un lote baja <strong>10-15% por debajo del mediano $/sqft</strong> con informacion de contacto del dueno lista</li>
+    </ul>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <h4 style="color: var(--blue); font-size: 16px; font-weight: 600; margin-bottom: 14px;">&#128736; Mejoras al Software Discutidas</h4>
+    <div class="improvements">
+      <div class="improvement-item"><div class="improvement-icon">&#9998;</div> Modulo de Building Permits &mdash; extraer permisos activos y audiencias de registros de la ciudad</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128274;</div> Guardar/bloquear deals para que los parametros no se reseteen al hacer clic afuera</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128178;</div> Mostrar montos en dolares junto a porcentajes (soft costs, closing costs)</div>
+      <div class="improvement-item"><div class="improvement-icon">&#8596;</div> Rangos mas amplios en sliders para mercados de lujo ($2K+/sqft construccion, $10K+/sqft venta)</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128506;</div> Vista 2D del mapa (no solo perspectiva 3D)</div>
+      <div class="improvement-item"><div class="improvement-icon">&#9634;</div> Mejor visualizacion de limites de lotes</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128279;</div> Conexion a API del MLS para datos en vivo</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128200;</div> Marcos de tiempo editables en la matriz de sensibilidad (12-36+ meses)</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128270;</div> Transparencia en el calculo del IRR (mostrar la formula)</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128228;</div> Links compartibles de analisis de deals</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128247;</div> Imagenes de propiedades en reportes (default 3, seleccionables)</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128424;</div> Exportar presentacion para inversionistas con un clic</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ MONETIZACION ═══════════════════ -->
+<section class="section" id="monetization">
+  <div class="section-header">
+    <div class="section-icon si-green">&#128176;</div>
+    <div class="section-title">Estrategia de Monetizacion</div>
+    <span class="section-time">8:00 &ndash; 27:00</span>
+  </div>
+
+  <div class="content-card">
+    <h4>&#127793; Tesis Central de Miguel</h4>
+    <p>El software es <strong>"espectacular"</strong> y hace al equipo 10x mejor. Sin embargo, venderlo como SaaS a $29/mes <strong>NO</strong> es donde esta el dinero &mdash; los competidores lo van a replicar en 3-6 meses. La <strong>verdadera monetizacion</strong> esta en usar el software para levantar capital para deals.</p>
+  </div>
+
+  <div class="content-card">
+    <h4>&#128640; Modelo Propuesto</h4>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Identificar Deal via Lot Analyzer</div>
+          <div class="step-text">Usar el analisis de la plataforma para encontrar y validar un deal con fuerte potencial de IRR.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Clic en "Execute" &rarr; Generar Portal de Inversionista</div>
+          <div class="step-text">Auto-generar una pagina de oferta con mapas de zona, heat maps, analisis de sensibilidad y modelo financiero.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Compartir Link con Inversionistas</div>
+          <div class="step-text">Los inversionistas hacen clic en el link, revisan el deal y comprometen capital. Aceptar stablecoins (USDC/Circle) por facilidad y cumplimiento.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Marco Legal</div>
+          <div class="step-text">Ofertas basadas en proyectos (no un fondo). Acuerdos operativos, KYC, cumplimiento SEC. Inversionistas deben ser acreditados/sofisticados. Reunion con Joey Giffner (abogado).</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">Primer Hito: Primer Dolar</div>
+          <div class="step-text">Conseguir UN inversionista (ej. Isaac Almosny) que comprometa $100K &rarr; prueba de concepto. Luego escalar con marketing.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h4>&#128170; Ventaja Competitiva</h4>
+    <ul>
+      <li><strong>Incluir los precios de construccion de Emuna</strong> en la plataforma &mdash; un GC confiable con track record agrega confianza para inversionistas</li>
+      <li>Empaquetar multiples servicios: leads, group chat, comunidad, website &mdash; no solo una herramienta aislada</li>
+      <li>Conexion con API del MLS crea una ventaja de datos <strong>dificil de replicar</strong></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════ ANALISIS DE DEALS ═══════════════════ -->
+<section class="section" id="deals">
+  <div class="section-header">
+    <div class="section-icon si-orange">&#127968;</div>
+    <div class="section-title">Analisis de Deals</div>
+    <span class="section-time">27:00 &ndash; 65:00</span>
+  </div>
+
+  <div class="deal-grid">
+    <!-- BAY POINT -->
+    <div class="deal-card featured">
+      <div class="deal-badge badge-hot">&#128293; FAVORITO</div>
+      <div class="deal-name">4403 Palm Lane, Bay Point</div>
+      <div class="deal-stats">
+        <div class="deal-stat">
+          <div class="deal-stat-label">Precio de Venta</div>
+          <div class="deal-stat-value gold">$11M</div>
+        </div>
+        <div class="deal-stat">
+          <div class="deal-stat-label">Dias en Mercado</div>
+          <div class="deal-stat-value">88</div>
+        </div>
+        <div class="deal-stat">
+          <div class="deal-stat-label">Salida $/sqft</div>
+          <div class="deal-stat-value green">$3,400-3,600</div>
+        </div>
+        <div class="deal-stat">
+          <div class="deal-stat-label">Tamano a Construir</div>
+          <div class="deal-stat-value">9,000 sqft</div>
+        </div>
+      </div>
+      <div class="deal-notes">
+        <strong>Veredicto de Miguel:</strong> "Esto es un jamon" &mdash; mas exclusivo/privado que Venetian Islands. Ideal para familias y profesionales.
+        Comps de Morningside activos a $4,700-5,400/sqft. Casa actual es para demoler. <strong>Necesitamos levantar $5M y movernos rapido.</strong>
+      </div>
+    </div>
+
+    <!-- VENETIAN -->
+    <div class="deal-card">
+      <div class="deal-badge badge-review">&#128269; REQUIERE REVISION</div>
+      <div class="deal-name">1234 S. Venetian Way</div>
+      <div class="deal-stats">
+        <div class="deal-stat">
+          <div class="deal-stat-label">Precio del Lote</div>
+          <div class="deal-stat-value">$2.5M</div>
+        </div>
+        <div class="deal-stat">
+          <div class="deal-stat-label">Tamano del Lote</div>
+          <div class="deal-stat-value">13,300 sqft</div>
+        </div>
+        <div class="deal-stat">
+          <div class="deal-stat-label">Venta Objetivo</div>
+          <div class="deal-stat-value">$4,000/sqft</div>
+        </div>
+        <div class="deal-stat">
+          <div class="deal-stat-label">Tamano a Construir</div>
+          <div class="deal-stat-value">9,000 sqft</div>
+        </div>
+      </div>
+      <div class="deal-notes">
+        <strong>Problemas:</strong> Jurisdiccion de City of Miami (no Miami Beach &mdash; no se pueden usar comps de San Marino). Edificio a 235ft afecta la privacidad. Pin del mapa en lote equivocado. Calidad de comparables cuestionable.
+      </div>
+    </div>
+
+    <!-- BELLMEAD -->
+    <div class="deal-card">
+      <div class="deal-badge badge-off">&#128230; OFF MARKET</div>
+      <div class="deal-name">7308 Bellmead</div>
+      <div class="deal-stats">
+        <div class="deal-stat">
+          <div class="deal-stat-label">Precio de Venta</div>
+          <div class="deal-stat-value">~$7M</div>
+        </div>
+        <div class="deal-stat">
+          <div class="deal-stat-label">Oferta del Equipo</div>
+          <div class="deal-stat-value">$6.5M</div>
+        </div>
+        <div class="deal-stat">
+          <div class="deal-stat-label">Objetivo de Venta</div>
+          <div class="deal-stat-value">$2,300/sqft</div>
+        </div>
+        <div class="deal-stat">
+          <div class="deal-stat-label">Tamano del Lote</div>
+          <div class="deal-stat-value">16,000 sqft</div>
+        </div>
+      </div>
+      <div class="deal-notes">
+        <strong>Notas:</strong> Equity Required mostrando $10M pero deberia ser ~$8-8.5M (error en calculo de closing costs). Se puede alquilar la casa existente mientras se sacan permisos. Sesion de fin de semana para detallar calculos.
+      </div>
+    </div>
+  </div>
+
+  <h4 style="color: var(--red); font-size: 16px; font-weight: 600; margin: 24px 0 14px;">&#9888; Problemas Identificados en los Deals</h4>
+  <div class="issues-grid">
+    <div class="issue-item"><strong>Jurisdiccion:</strong> El comp de San Marino es Miami Beach; la propiedad es City of Miami &mdash; precios no son comparables</div>
+    <div class="issue-item"><strong>Precision del mapa:</strong> El sistema puso el marcador en el lote equivocado &mdash; necesitamos limites de parcelas mas claros</div>
+    <div class="issue-item"><strong>Calculo de equity:</strong> El calculo de closing costs parece muy alto, inflando el Equity Required</div>
+    <div class="issue-item"><strong>Proximidad de edificio:</strong> Edificio a 235ft impacta la privacidad y el valor</div>
+    <div class="issue-item"><strong>Calidad de comps:</strong> Datos del MLS no actualizados para construcciones nuevas &mdash; muestra sqft de la casa vieja</div>
+    <div class="issue-item"><strong>Timing de sensibilidad:</strong> Default de 21 meses es poco realista para muchos proyectos</div>
+  </div>
+</section>
+
+<!-- ═══════════════════ RE COMERCIAL ═══════════════════ -->
+<section class="section" id="commercial">
+  <div class="section-header">
+    <div class="section-icon si-blue">&#127978;</div>
+    <div class="section-title">Estrategia de RE Comercial</div>
+    <span class="section-time">65:00 &ndash; 82:00</span>
+  </div>
+
+  <div class="content-card">
+    <h4>&#127959; Modelo de Strip Mall de Miguel</h4>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Adquirir Activo en Distress</div>
+          <div class="step-text">Comprar un strip mall deteriorado ~$1M. 60/40 LTV &mdash; $400K de equity, $600K de prestamo al 7%, plazo de 7-8 anos.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Mejorar y Asegurar Credit Tenants</div>
+          <div class="step-text">Invertir ~$100K en mejoras. LA CLAVE: reemplazar inquilinos de baja calidad con Starbucks, Wells Fargo, Bank of America. Mismo alquiler, pero el cap rate baja de 7-8% a 5% &mdash; <strong>el valor de la propiedad se duplica.</strong></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Refinanciar y Devolver Equity</div>
+          <div class="step-text">Refinanciar cada 2-3 anos. Cada refinanciamiento devuelve ~40% del equity ($200K). Despues de 3 refinanciamientos: todo el dinero original del inversionista devuelto.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Flujo de Caja Pasivo Permanente</div>
+          <div class="step-text">El activo genera ingresos continuos con manejo minimo. Contratos triple net en out parcels = cero dolores de cabeza.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="waterfall">
+    <h4>&#128184; Estructura Waterfall</h4>
+    <div class="waterfall-row">
+      <div class="waterfall-label" style="font-weight:600; color:#fff;">Antes de Devolver Equity</div>
+      <div class="waterfall-bar-wrap">
+        <div class="waterfall-bar-investor" style="width:85%; background: var(--gold);">85% Inversionistas</div>
+        <div class="waterfall-bar-sponsor" style="width:15%; background: var(--navy-light);">15%</div>
+      </div>
+    </div>
+    <div class="waterfall-arrow">&#8595; Despues de devolver todo el equity &#8595;</div>
+    <div class="waterfall-row">
+      <div class="waterfall-label" style="font-weight:600; color:#fff;">Despues de Devolver Equity</div>
+      <div class="waterfall-bar-wrap">
+        <div class="waterfall-bar-investor" style="width:70%; background: var(--gold);">70% Inversionistas</div>
+        <div class="waterfall-bar-sponsor" style="width:30%; background: var(--navy-light);">30%</div>
+      </div>
+    </div>
+    <p style="margin-top: 16px; font-size: 13px; color: var(--text-muted);">
+      <strong style="color:var(--green);">Insight Clave:</strong> Asegurar el credit tenant ANTES de renovar. Renovar segun sus especificaciones. Conseguir un contrato de 10 anos &rarr; el valor de la propiedad sube inmediatamente. La ganancia esta en el refinanciamiento, no en la renta.
+    </p>
+  </div>
+
+  <div class="content-card">
+    <h4>&#127917; Hotel The Lauderdale &mdash; Prueba de Automatizacion</h4>
+    <p>El hotel de Noel funciona casi totalmente automatizado: call center con IA maneja disputas de Airbnb, property manager part-time ($3K/mes), estados financieros automatizados. Noel no ha visitado en 6 meses. Cero contacto con clientes requerido. El modelo valida la tesis de RE comercial de bajo mantenimiento.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ PROXIMOS PASOS ═══════════════════ -->
+<section class="section" id="next-steps">
+  <div class="section-header">
+    <div class="section-icon si-green">&#9989;</div>
+    <div class="section-title">Acciones y Proximos Pasos</div>
+  </div>
+
+  <div class="actions">
+    <div class="action-item"><strong>Bay Point:</strong> Contactar a Alzaia para asistir con la compra. Iniciar contacto con inversionistas (grupo brasileno). Objetivo: levantar $5M.</div>
+    <div class="action-item"><strong>Presentacion para Inversionistas:</strong> Generar deck de 5 paginas desde el software (disclaimer, oportunidad, zona, financieros, equity, equipo). Usar deck de Bellmead como plantilla.</div>
+    <div class="action-item"><strong>Legal:</strong> Reunirse con Joey Giffner (o equivalente) para preparar acuerdos operativos, KYC y documentos de oferta cumpliendo con SEC.</div>
+    <div class="action-item"><strong>Revision Detallada de IRR:</strong> Miguel + equipo se sientan este fin de semana para auditar todos los calculos financieros en detalle.</div>
+    <div class="action-item"><strong>Exportar desde Software:</strong> Construir funcionalidad de reporte para inversionistas con un clic. Conectar a Gamma para auto-formateo.</div>
+    <div class="action-item"><strong>Correcciones al Software:</strong> Arreglar calculo de equity, ampliar sliders, agregar montos en dolares junto a %, mejorar limites de lotes, agregar vista 2D.</div>
+    <div class="action-item"><strong>Building Permits:</strong> Agregar modulo para extraer permisos activos y audiencias de registros de la ciudad de Miami-Dade.</div>
+    <div class="action-item"><strong>RE Comercial:</strong> Asistir a reunion con el fund manager de $50M en out parcels. Explorar oportunidades de adquisicion de strip malls.</div>
+  </div>
+</section>
+
+</div>
+
+<!-- ═══════════════════ JS ═══════════════════ -->
+<script>
+  const tabs = document.querySelectorAll('.nav-tab');
+  const sections = [];
+  tabs.forEach(tab => {
+    const id = tab.getAttribute('href')?.replace('#', '');
+    if (id) sections.push({ id, el: document.getElementById(id), tab });
+  });
+  function updateActive() {
+    let current = sections[0];
+    for (const s of sections) {
+      if (s.el && s.el.getBoundingClientRect().top <= 100) current = s;
+    }
+    tabs.forEach(t => t.classList.remove('active'));
+    if (current?.tab) current.tab.classList.add('active');
+  }
+  window.addEventListener('scroll', updateActive, { passive: true });
+  tabs.forEach(tab => {
+    tab.addEventListener('click', e => {
+      e.preventDefault();
+      const id = tab.getAttribute('href')?.replace('#', '');
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
