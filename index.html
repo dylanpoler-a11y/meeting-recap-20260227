@@ -549,6 +549,45 @@
   .comment-submit:hover { opacity: 0.85; }
 
   /* ── EDITABLE TEXT ── */
+  .editable {
+    cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: all 0.15s;
+    position: relative;
+    padding: 2px 4px;
+    margin: -2px -4px;
+  }
+  .editable:hover {
+    border-color: rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.05);
+  }
+  .editable:hover::after {
+    content: '✎';
+    font-size: 9px;
+    color: var(--gold);
+    opacity: 0.6;
+    position: absolute;
+    top: 2px; right: 4px;
+    pointer-events: none;
+  }
+  .editable.edited {
+    border-left: 2px solid rgba(201,168,76,0.4);
+  }
+  .edit-textarea {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: inherit;
+    padding: 6px 8px;
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    resize: vertical;
+    min-height: 40px;
+    line-height: 1.5;
+  }
+  .edit-textarea:focus { outline: none; }
   .action-text-display {
     cursor: pointer;
     padding: 4px 6px;
@@ -1403,7 +1442,8 @@ const FIELD_LABELS = {
   responsible: 'Responsable',
   deadline: 'Deadline',
   status: 'Status',
-  text: 'Texto'
+  text: 'Texto',
+  contenido: 'Contenido'
 };
 
 function formatHistoryValue(field, val) {
@@ -1634,6 +1674,140 @@ function escapeHtml(text) {
 }
 
 // ════════════════════════════════════════
+// GLOBAL EDITABLE TEXT
+// ════════════════════════════════════════
+const EDITABLE_SELECTORS = [
+  '.tc-title',
+  '.tc-text',
+  '.content-card li',
+  '.content-card > p',
+  '.content-card > .steps .step-title',
+  '.content-card > .steps .step-text',
+  '.deal-notes',
+  '.deal-name',
+  '.deal-stat-value',
+  '.issue-item',
+  '.improvement-item',
+  '.waterfall .waterfall-label',
+  '.waterfall > p',
+  '.highlight-box',
+  'p[style*="background: rgba(167"]',
+];
+
+let contentEdits = {};
+
+function initEditableContent() {
+  // Load saved edits
+  Storage.get('contentEdits', (data) => {
+    contentEdits = data || {};
+    applyEdits();
+    markEditableElements();
+  });
+  if (useFirebase) {
+    db.ref('contentEdits').on('value', snap => {
+      contentEdits = snap.val() || {};
+      applyEdits();
+    });
+  }
+}
+
+function markEditableElements() {
+  let idx = 0;
+  const sel = EDITABLE_SELECTORS.join(', ');
+  document.querySelectorAll(sel).forEach(el => {
+    // Skip elements inside KPIs (those are dynamic) and inside action table
+    if (el.closest('#kpis') || el.closest('#actionTable') || el.closest('.login-box') || el.closest('.history-panel') || el.closest('.comments-area') || el.closest('.comment-thread')) return;
+    // Skip elements that are already marked
+    if (el.dataset.eid) return;
+
+    const eid = 'e' + idx++;
+    el.dataset.eid = eid;
+
+    // Store original as fallback
+    if (!el.dataset.original) {
+      el.dataset.original = el.innerHTML;
+    }
+
+    el.classList.add('editable');
+    if (contentEdits[eid]) el.classList.add('edited');
+
+    el.addEventListener('click', function(ev) {
+      // Don't trigger if clicking a link or already editing
+      if (ev.target.tagName === 'A' || el.querySelector('.edit-textarea')) return;
+      startEditContent(el);
+    });
+  });
+}
+
+function applyEdits() {
+  document.querySelectorAll('[data-eid]').forEach(el => {
+    const eid = el.dataset.eid;
+    if (contentEdits[eid]) {
+      el.innerHTML = contentEdits[eid];
+      el.classList.add('edited');
+    }
+  });
+}
+
+function startEditContent(el) {
+  if (!currentUser) { alert('Inicia sesion para editar'); return; }
+  if (el.querySelector('.edit-textarea')) return;
+
+  const currentHtml = el.innerHTML;
+  const plain = currentHtml.replace(/<strong>/g, '**').replace(/<\/strong>/g, '**').replace(/<br\s*\/?>/g, '\n').replace(/<[^>]*>/g, '').replace(/&mdash;/g, '—').replace(/&rarr;/g, '→').replace(/&middot;/g, '·').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+
+  const originalDisplay = window.getComputedStyle(el).display;
+  const ta = document.createElement('textarea');
+  ta.className = 'edit-textarea';
+  ta.value = plain;
+  ta.style.fontSize = window.getComputedStyle(el).fontSize;
+  ta.rows = Math.max(2, Math.ceil(plain.length / 60));
+
+  el.innerHTML = '';
+  el.appendChild(ta);
+  ta.focus();
+
+  function save() {
+    let val = ta.value.trim();
+    if (!val) { el.innerHTML = currentHtml; return; }
+    // Convert **text** back to <strong>
+    val = val.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    // Convert newlines to <br>
+    val = val.replace(/\n/g, '<br>');
+
+    const eid = el.dataset.eid;
+    if (val !== currentHtml) {
+      el.innerHTML = val;
+      el.classList.add('edited');
+      contentEdits[eid] = val;
+      Storage.set('contentEdits', contentEdits);
+
+      // Log to history
+      const section = el.closest('.section');
+      const sectionName = section ? (section.querySelector('.section-title')?.textContent || 'Seccion') : 'Contenido';
+      const oldPlain = currentHtml.replace(/<[^>]*>/g, '').substring(0, 50);
+      const newPlain = val.replace(/<[^>]*>/g, '').substring(0, 50);
+      logHistory('contenido', oldPlain, newPlain, sectionName);
+    } else {
+      el.innerHTML = currentHtml;
+    }
+  }
+
+  ta.addEventListener('blur', save);
+  ta.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      ta.removeEventListener('blur', save);
+      el.innerHTML = currentHtml;
+    }
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      ta.removeEventListener('blur', save);
+      save();
+    }
+  });
+}
+
+// ════════════════════════════════════════
 // NAV TABS
 // ════════════════════════════════════════
 const tabs = document.querySelectorAll('.nav-tab');
@@ -1665,6 +1839,7 @@ tabs.forEach(tab => {
 initActions();
 initComments();
 initHistory();
+initEditableContent();
 </script>
 
 </body>
