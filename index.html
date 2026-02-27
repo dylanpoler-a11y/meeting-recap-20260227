@@ -23,6 +23,7 @@
     --red: #f87171;
     --orange: #fb923c;
     --blue: #60a5fa;
+    --purple: #a78bfa;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -35,98 +36,125 @@
     min-height: 100vh;
   }
 
+  /* ── LOGIN MODAL ── */
+  .login-overlay {
+    position: fixed; inset: 0;
+    background: rgba(15,25,35,0.95);
+    z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .login-overlay.hidden { display: none; }
+  .login-box {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 48px;
+    text-align: center;
+    max-width: 440px;
+    width: 90%;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  }
+  .login-box h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .login-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 28px; }
+  .login-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .login-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 16px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .login-btn:hover { background: rgba(201,168,76,0.15); border-color: var(--gold); }
+  .login-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px; color: var(--navy-dark);
+  }
+  .login-btn strong { color: #fff; font-size: 14px; }
+  .login-btn span { color: var(--text-muted); font-size: 11px; }
+
+  /* ── USER BAR ── */
+  .user-bar {
+    position: fixed; top: 0; right: 0;
+    z-index: 200;
+    padding: 12px 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .user-bar.hidden { display: none; }
+  .user-bar-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 12px; color: var(--navy-dark);
+  }
+  .user-bar-name { color: #fff; font-size: 13px; font-weight: 500; }
+  .user-bar-logout {
+    background: none; border: 1px solid rgba(255,255,255,0.15);
+    color: var(--text-muted); font-size: 11px;
+    padding: 4px 10px; border-radius: 6px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .user-bar-logout:hover { border-color: var(--red); color: var(--red); }
+
   /* ── HEADER ── */
   .hero {
     background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-light) 100%);
     padding: 60px 40px 50px;
     border-bottom: 3px solid var(--gold);
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
   }
   .hero::before {
     content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 600px;
-    height: 600px;
+    position: absolute; top: -50%; right: -20%;
+    width: 600px; height: 600px;
     background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
     border-radius: 50%;
   }
   .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
   .hero-label {
     display: inline-block;
-    background: var(--gold);
-    color: var(--navy-dark);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 5px 14px;
-    border-radius: 4px;
-    margin-bottom: 16px;
+    background: var(--gold); color: var(--navy-dark);
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 4px; margin-bottom: 16px;
   }
   .hero h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 8px;
+    font-size: 42px; font-weight: 700; color: #fff; margin-bottom: 8px;
   }
   .hero h1 span { color: var(--gold); }
   .hero-sub { color: var(--text-muted); font-size: 16px; margin-bottom: 28px; }
-
-  .meta-row {
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
-    margin-bottom: 24px;
-  }
-  .meta-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    color: var(--text-muted);
-  }
+  .meta-row { display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 24px; }
+  .meta-item { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-muted); }
   .meta-icon {
-    width: 32px;
-    height: 32px;
-    background: rgba(201,168,76,0.15);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
+    width: 32px; height: 32px;
+    background: rgba(201,168,76,0.15); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
   }
-
-  .participants {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
+  .participants { display: flex; gap: 12px; flex-wrap: wrap; }
   .participant {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px;
-    padding: 12px 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
+    border-radius: 10px; padding: 12px 18px;
+    display: flex; align-items: center; gap: 10px; font-size: 13px;
     transition: all 0.2s;
   }
   .participant:hover { background: rgba(201,168,76,0.1); border-color: var(--gold); }
   .participant-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 13px;
-    color: var(--navy-dark);
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px; color: var(--navy-dark);
   }
   .av-poler { background: var(--gold); }
   .av-emuna { background: var(--green); }
@@ -134,413 +162,390 @@
   .participant-info strong { display: block; color: #fff; font-size: 14px; }
   .participant-info span { color: var(--text-muted); font-size: 12px; }
 
-  /* ── NAVIGATION TABS ── */
+  /* ── NAVIGATION ── */
   .nav-bar {
     background: var(--navy-dark);
     border-bottom: 1px solid rgba(255,255,255,0.08);
     padding: 0 40px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    position: sticky; top: 0; z-index: 100;
   }
   .nav-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
+    max-width: 1200px; margin: 0 auto;
+    display: flex; gap: 0; overflow-x: auto;
   }
   .nav-tab {
-    padding: 16px 24px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-muted);
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    white-space: nowrap;
-    transition: all 0.2s;
-    cursor: pointer;
+    padding: 16px 20px; font-size: 13px; font-weight: 500;
+    color: var(--text-muted); text-decoration: none;
+    border-bottom: 2px solid transparent; white-space: nowrap;
+    transition: all 0.2s; cursor: pointer;
   }
   .nav-tab:hover { color: var(--gold-light); }
   .nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
 
-  /* ── MAIN CONTENT ── */
+  /* ── MAIN ── */
   .container { max-width: 1200px; margin: 0 auto; padding: 40px; }
 
-  /* ── KEY TAKEAWAYS ── */
+  /* ── KPI SECTION ── */
+  .kpi-section { margin-bottom: 48px; }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .kpi-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .kpi-value { font-size: 32px; font-weight: 700; }
+  .kpi-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .kpi-status-ns { color: var(--text-muted); }
+  .kpi-status-ip { color: var(--blue); }
+  .kpi-status-sb { color: var(--orange); }
+  .kpi-status-co { color: var(--green); }
+
+  .kpi-people {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .kpi-person-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .kpi-person-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; color: var(--navy-dark); flex-shrink: 0;
+  }
+  .kpi-person-name { font-size: 14px; font-weight: 600; color: #fff; }
+  .kpi-person-count { font-size: 12px; color: var(--text-muted); }
+  .kpi-person-bar {
+    height: 4px; border-radius: 2px; margin-top: 6px;
+    background: rgba(255,255,255,0.08); overflow: hidden;
+    display: flex;
+  }
+  .kpi-bar-seg { height: 100%; }
+
+  .kpi-alerts {
+    background: rgba(248,113,113,0.06);
+    border: 1px solid rgba(248,113,113,0.15);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .kpi-alerts h4 {
+    color: var(--red); font-size: 14px; font-weight: 600; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .kpi-alert-item {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(248,113,113,0.08);
+    font-size: 13px; color: var(--text-muted);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .kpi-alert-item:last-child { border-bottom: none; }
+  .kpi-alert-days {
+    background: rgba(248,113,113,0.2);
+    color: var(--red); font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 4px;
+  }
+  .kpi-no-alerts {
+    color: var(--green); font-size: 14px; text-align: center; padding: 12px;
+  }
+
+  /* ── TAKEAWAYS ── */
   .takeaways {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 16px;
-    margin-bottom: 48px;
+    gap: 16px; margin-bottom: 48px;
   }
   .takeaway-card {
     background: var(--card);
     border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    padding: 24px;
+    border-radius: 14px; padding: 24px;
     transition: all 0.25s;
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
   }
   .takeaway-card:hover { transform: translateY(-2px); border-color: var(--gold); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
-  .takeaway-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 4px;
-    height: 100%;
-  }
+  .takeaway-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
   .tc-gold::before { background: var(--gold); }
   .tc-green::before { background: var(--green); }
   .tc-blue::before { background: var(--blue); }
   .tc-orange::before { background: var(--orange); }
   .tc-red::before { background: var(--red); }
-
   .tc-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 12px;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 50%;
+    font-size: 13px; font-weight: 700; margin-bottom: 12px;
   }
   .tc-gold .tc-number { background: rgba(201,168,76,0.2); color: var(--gold); }
   .tc-green .tc-number { background: rgba(52,211,153,0.2); color: var(--green); }
   .tc-blue .tc-number { background: rgba(96,165,250,0.2); color: var(--blue); }
   .tc-orange .tc-number { background: rgba(251,146,60,0.2); color: var(--orange); }
   .tc-red .tc-number { background: rgba(248,113,113,0.2); color: var(--red); }
-
-  .tc-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 8px;
-  }
+  .tc-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 8px; }
   .tc-text { font-size: 14px; color: var(--text-muted); line-height: 1.55; }
 
-  /* ── SECTION HEADERS ── */
+  /* ── SECTIONS ── */
   .section { margin-bottom: 48px; scroll-margin-top: 70px; }
   .section-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 24px;
-    padding-bottom: 16px;
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 24px; padding-bottom: 16px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
   }
   .section-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
   }
   .si-gold { background: rgba(201,168,76,0.15); }
   .si-green { background: rgba(52,211,153,0.15); }
   .si-blue { background: rgba(96,165,250,0.15); }
   .si-orange { background: rgba(251,146,60,0.15); }
   .si-red { background: rgba(248,113,113,0.15); }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    font-weight: 700;
-    color: #fff;
-  }
+  .si-purple { background: rgba(167,139,250,0.15); }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: #fff; }
   .section-time {
-    font-size: 12px;
-    color: var(--text-muted);
+    font-size: 12px; color: var(--text-muted);
     background: rgba(255,255,255,0.06);
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-left: auto;
-    white-space: nowrap;
+    padding: 3px 10px; border-radius: 20px;
+    margin-left: auto; white-space: nowrap;
   }
 
   /* ── CONTENT CARDS ── */
   .content-card {
     background: var(--card);
     border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 14px;
-    padding: 28px;
-    margin-bottom: 16px;
+    border-radius: 14px; padding: 28px; margin-bottom: 16px;
   }
-  .content-card h4 {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--gold);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .content-card h4 { font-size: 16px; font-weight: 600; color: var(--gold); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
   .content-card ul { list-style: none; padding: 0; }
   .content-card li {
-    padding: 8px 0 8px 24px;
-    position: relative;
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.6;
+    padding: 8px 0 8px 24px; position: relative;
+    font-size: 14px; color: var(--text-muted); line-height: 1.6;
     border-bottom: 1px solid rgba(255,255,255,0.03);
   }
   .content-card li:last-child { border-bottom: none; }
   .content-card li::before {
-    content: '';
-    position: absolute;
-    left: 6px;
-    top: 16px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--gold);
+    content: ''; position: absolute; left: 6px; top: 16px;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
   }
   .content-card li strong { color: #fff; font-weight: 500; }
   .content-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 12px; }
 
   /* ── DEAL CARDS ── */
-  .deal-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 16px;
-    margin-bottom: 16px;
-  }
+  .deal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin-bottom: 16px; }
   .deal-card {
     background: var(--card);
     border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
+    border-radius: 14px; padding: 24px;
+    position: relative; overflow: hidden;
   }
-  .deal-card.featured {
-    border-color: var(--gold);
-    box-shadow: 0 0 30px rgba(201,168,76,0.1);
-  }
+  .deal-card.featured { border-color: var(--gold); box-shadow: 0 0 30px rgba(201,168,76,0.1); }
   .deal-badge {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 4px;
-    margin-bottom: 12px;
+    display: inline-block; font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 4px; margin-bottom: 12px;
   }
   .badge-hot { background: rgba(248,113,113,0.2); color: var(--red); }
   .badge-review { background: rgba(251,146,60,0.2); color: var(--orange); }
   .badge-off { background: rgba(96,165,250,0.2); color: var(--blue); }
-
-  .deal-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 16px;
-  }
-  .deal-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-  .deal-stat {
-    background: rgba(255,255,255,0.04);
-    border-radius: 10px;
-    padding: 12px;
-  }
+  .deal-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 16px; }
+  .deal-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .deal-stat { background: rgba(255,255,255,0.04); border-radius: 10px; padding: 12px; }
   .deal-stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
   .deal-stat-value { font-size: 18px; font-weight: 700; color: #fff; }
   .deal-stat-value.green { color: var(--green); }
   .deal-stat-value.gold { color: var(--gold); }
-
   .deal-notes { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
   .deal-notes strong { color: #fff; }
 
-  /* ── WATERFALL VISUAL ── */
+  /* ── WATERFALL ── */
   .waterfall {
     background: var(--card);
     border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    padding: 28px;
-    margin-bottom: 16px;
+    border-radius: 14px; padding: 28px; margin-bottom: 16px;
   }
-  .waterfall h4 {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--gold);
-    margin-bottom: 20px;
-  }
-  .waterfall-row {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-  .waterfall-label {
-    font-size: 13px;
-    color: var(--text-muted);
-    width: 220px;
-    flex-shrink: 0;
-  }
-  .waterfall-bar-wrap {
-    flex: 1;
-    height: 36px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 8px;
-    overflow: hidden;
-    display: flex;
-  }
-  .waterfall-bar-investor {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--navy-dark);
-  }
-  .waterfall-bar-sponsor {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 700;
-    color: #fff;
-  }
-  .waterfall-arrow {
-    text-align: center;
-    color: var(--gold);
-    font-size: 20px;
-    margin: 8px 0;
-  }
+  .waterfall h4 { font-size: 16px; font-weight: 600; color: var(--gold); margin-bottom: 20px; }
+  .waterfall-row { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+  .waterfall-label { font-size: 13px; color: var(--text-muted); width: 220px; flex-shrink: 0; }
+  .waterfall-bar-wrap { flex: 1; height: 36px; background: rgba(255,255,255,0.04); border-radius: 8px; overflow: hidden; display: flex; }
+  .waterfall-bar-investor { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--navy-dark); }
+  .waterfall-bar-sponsor { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; }
+  .waterfall-arrow { text-align: center; color: var(--gold); font-size: 20px; margin: 8px 0; }
 
-  /* ── NUMBERED STEPS ── */
+  /* ── STEPS ── */
   .steps { counter-reset: step; }
-  .step {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 20px;
-    counter-increment: step;
-  }
+  .step { display: flex; gap: 16px; margin-bottom: 20px; counter-increment: step; }
   .step-num {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgba(201,168,76,0.15);
-    color: var(--gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 14px;
-    flex-shrink: 0;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(201,168,76,0.15); color: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; flex-shrink: 0;
   }
   .step-content { flex: 1; }
   .step-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 4px; }
   .step-text { font-size: 14px; color: var(--text-muted); line-height: 1.55; }
 
-  /* ── ISSUES LIST ── */
-  .issues-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 12px;
-  }
+  /* ── ISSUES ── */
+  .issues-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
   .issue-item {
     background: rgba(248,113,113,0.06);
     border: 1px solid rgba(248,113,113,0.15);
-    border-radius: 10px;
-    padding: 16px 16px 16px 44px;
-    font-size: 14px;
-    color: var(--text-muted);
-    position: relative;
-    line-height: 1.5;
+    border-radius: 10px; padding: 16px 16px 16px 44px;
+    font-size: 14px; color: var(--text-muted); position: relative; line-height: 1.5;
   }
   .issue-item::before {
-    content: '!';
-    position: absolute;
-    left: 14px;
-    top: 14px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: rgba(248,113,113,0.2);
-    color: var(--red);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 12px;
+    content: '!'; position: absolute; left: 14px; top: 14px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: rgba(248,113,113,0.2); color: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 12px;
   }
   .issue-item strong { color: var(--red); font-weight: 600; }
 
-  /* ── SOFTWARE IMPROVEMENTS ── */
-  .improvements {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 12px;
-  }
+  /* ── IMPROVEMENTS ── */
+  .improvements { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
   .improvement-item {
     background: rgba(96,165,250,0.06);
     border: 1px solid rgba(96,165,250,0.12);
-    border-radius: 10px;
-    padding: 16px;
-    font-size: 13px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    line-height: 1.5;
+    border-radius: 10px; padding: 16px;
+    font-size: 13px; color: var(--text-muted);
+    display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
   }
   .improvement-icon {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    background: rgba(96,165,250,0.2);
-    color: var(--blue);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    flex-shrink: 0;
-    margin-top: 1px;
+    width: 20px; height: 20px; border-radius: 4px;
+    background: rgba(96,165,250,0.2); color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; flex-shrink: 0; margin-top: 1px;
   }
 
-  /* ── ACTION ITEMS ── */
-  .actions {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 12px;
+  /* ── ACTION ITEMS (INTERACTIVE) ── */
+  .action-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
     margin-top: 16px;
   }
-  .action-item {
-    background: rgba(52,211,153,0.06);
-    border: 1px solid rgba(52,211,153,0.15);
-    border-radius: 10px;
-    padding: 16px 16px 16px 44px;
+  .action-table th {
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.02);
+  }
+  .action-table th:first-child { border-radius: 10px 0 0 0; }
+  .action-table th:last-child { border-radius: 0 10px 0 0; }
+  .action-table td {
+    padding: 12px 14px;
     font-size: 14px;
     color: var(--text-muted);
-    position: relative;
-    line-height: 1.5;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: middle;
   }
-  .action-item::before {
-    content: '';
-    position: absolute;
-    left: 16px;
-    top: 18px;
-    width: 16px;
-    height: 16px;
-    border: 2px solid var(--green);
-    border-radius: 4px;
+  .action-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .action-text { color: #fff; font-weight: 400; line-height: 1.5; }
+  .action-text strong { color: var(--gold); font-weight: 600; }
+
+  .action-select, .action-date {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 12px;
+    padding: 6px 8px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    width: 100%;
   }
+  .action-select:focus, .action-date:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+  .action-date { color-scheme: dark; }
+  .action-date::-webkit-calendar-picker-indicator { filter: invert(0.7); }
+
+  .days-badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 700;
+    padding: 3px 8px; border-radius: 4px;
+    white-space: nowrap;
+  }
+  .days-ok { background: rgba(52,211,153,0.15); color: var(--green); }
+  .days-warn { background: rgba(251,146,60,0.15); color: var(--orange); }
+  .days-overdue { background: rgba(248,113,113,0.2); color: var(--red); }
+  .days-done { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+
+  .status-no_iniciado { color: var(--text-muted); }
+  .status-en_progreso { color: var(--blue); }
+  .status-en_espera { color: var(--orange); }
+  .status-completado { color: var(--green); }
+
+  /* ── COMMENTS ── */
+  .comments-toggle {
+    background: none; border: none;
+    color: var(--text-muted); font-size: 12px;
+    cursor: pointer; padding: 8px 0;
+    display: flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .comments-toggle:hover { color: var(--gold); }
+  .comments-area { margin-top: 8px; display: none; }
+  .comments-area.open { display: block; }
+  .comment-thread {
+    padding: 12px 0;
+  }
+  .comment-item {
+    display: flex; gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .comment-item:last-child { border-bottom: none; }
+  .comment-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 10px; color: var(--navy-dark);
+    flex-shrink: 0;
+  }
+  .comment-body { flex: 1; }
+  .comment-meta { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+  .comment-meta strong { color: #fff; }
+  .comment-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .comment-input-row {
+    display: flex; gap: 8px;
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .comment-input {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: var(--text); font-size: 13px;
+    padding: 8px 12px;
+    font-family: 'Inter', sans-serif;
+    resize: none; min-height: 36px;
+  }
+  .comment-input:focus { outline: none; border-color: var(--gold); }
+  .comment-submit {
+    background: var(--gold); color: var(--navy-dark);
+    border: none; border-radius: 8px;
+    font-size: 12px; font-weight: 600;
+    padding: 8px 16px; cursor: pointer;
+    transition: opacity 0.2s;
+    white-space: nowrap; align-self: flex-end;
+  }
+  .comment-submit:hover { opacity: 0.85; }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
@@ -548,14 +553,65 @@
     .hero h1 { font-size: 28px; }
     .container { padding: 24px 16px; }
     .nav-bar { padding: 0 16px; }
-    .nav-tab { padding: 14px 16px; font-size: 12px; }
+    .nav-tab { padding: 14px 14px; font-size: 12px; }
     .deal-grid, .takeaways { grid-template-columns: 1fr; }
     .meta-row { gap: 16px; }
     .participants { flex-direction: column; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .action-table { font-size: 12px; }
+    .action-table th, .action-table td { padding: 8px 6px; }
+    .login-grid { grid-template-columns: 1fr; }
+    .user-bar { position: static; justify-content: flex-end; padding: 8px 20px; background: var(--navy-dark); }
+  }
+  @media (max-width: 480px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+    .action-table-wrap { overflow-x: auto; }
   }
 </style>
 </head>
 <body>
+
+<!-- ═══════════════════ LOGIN MODAL ═══════════════════ -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <h2>Bienvenido</h2>
+    <p>Selecciona tu perfil para colaborar en el dashboard</p>
+    <div class="login-grid">
+      <div class="login-btn" onclick="login('Dylan','Poler','DP','av-poler')">
+        <div class="login-avatar av-poler">DP</div>
+        <strong>Dylan Poler</strong>
+        <span>The Poler Team</span>
+      </div>
+      <div class="login-btn" onclick="login('Kevin','Poler','KP','av-poler')">
+        <div class="login-avatar av-poler">KP</div>
+        <strong>Kevin Poler</strong>
+        <span>The Poler Team</span>
+      </div>
+      <div class="login-btn" onclick="login('Noel','Poler','NP','av-poler')">
+        <div class="login-avatar av-poler">NP</div>
+        <strong>Noel Poler</strong>
+        <span>The Poler Team</span>
+      </div>
+      <div class="login-btn" onclick="login('Miguel','Bubis','MB','av-emuna')">
+        <div class="login-avatar av-emuna">MB</div>
+        <strong>Miguel Bubis</strong>
+        <span>Emuna</span>
+      </div>
+      <div class="login-btn" onclick="login('Andres','Hausmann','AH','av-house')">
+        <div class="login-avatar av-house">AH</div>
+        <strong>Andres Hausmann</strong>
+        <span>Housemann House</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ USER BAR ═══════════════════ -->
+<div class="user-bar hidden" id="userBar">
+  <div class="user-bar-avatar" id="userBarAvatar"></div>
+  <span class="user-bar-name" id="userBarName"></span>
+  <button class="user-bar-logout" onclick="logout()">Salir</button>
+</div>
 
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <header class="hero">
@@ -563,7 +619,6 @@
     <div class="hero-label">Resumen de Reunion</div>
     <h1>InvestorOS <span>Sesion Estrategica</span></h1>
     <p class="hero-sub">Revision del Lot Analyzer, Analisis de Deals y Estrategia de Monetizacion</p>
-
     <div class="meta-row">
       <div class="meta-item">
         <div class="meta-icon">&#128197;</div>
@@ -578,42 +633,26 @@
         <div><strong style="color:#fff">Presencial</strong></div>
       </div>
     </div>
-
     <div class="participants">
       <div class="participant">
         <div class="participant-avatar av-poler">DP</div>
-        <div class="participant-info">
-          <strong>Dylan Poler</strong>
-          <span>The Poler Team &middot; M&A Lead Gen</span>
-        </div>
+        <div class="participant-info"><strong>Dylan Poler</strong><span>The Poler Team &middot; M&A Lead Gen</span></div>
       </div>
       <div class="participant">
         <div class="participant-avatar av-poler">KP</div>
-        <div class="participant-info">
-          <strong>Kevin Poler</strong>
-          <span>The Poler Team &middot; Bienes Raices Comerciales</span>
-        </div>
+        <div class="participant-info"><strong>Kevin Poler</strong><span>The Poler Team &middot; RE Comercial</span></div>
       </div>
       <div class="participant">
         <div class="participant-avatar av-poler">NP</div>
-        <div class="participant-info">
-          <strong>Noel Poler</strong>
-          <span>The Poler Team &middot; Consultoria</span>
-        </div>
+        <div class="participant-info"><strong>Noel Poler</strong><span>The Poler Team &middot; Consultoria</span></div>
       </div>
       <div class="participant">
         <div class="participant-avatar av-emuna">MB</div>
-        <div class="participant-info">
-          <strong>Miguel Bubis</strong>
-          <span>Emuna &middot; Contratista e Inversionista</span>
-        </div>
+        <div class="participant-info"><strong>Miguel Bubis</strong><span>Emuna &middot; Contratista e Inversionista</span></div>
       </div>
       <div class="participant">
         <div class="participant-avatar av-house">AH</div>
-        <div class="participant-info">
-          <strong>Andres Hausmann</strong>
-          <span>Housemann House &middot; Arquitecto</span>
-        </div>
+        <div class="participant-info"><strong>Andres Hausmann</strong><span>Housemann House &middot; Arquitecto</span></div>
       </div>
     </div>
   </div>
@@ -622,16 +661,35 @@
 <!-- ═══════════════════ NAV ═══════════════════ -->
 <nav class="nav-bar">
   <div class="nav-inner">
-    <a class="nav-tab active" href="#takeaways">Puntos Clave</a>
+    <a class="nav-tab active" href="#kpis">KPIs</a>
+    <a class="nav-tab" href="#takeaways">Puntos Clave</a>
+    <a class="nav-tab" href="#emuna">Emuna</a>
     <a class="nav-tab" href="#software">Software</a>
     <a class="nav-tab" href="#monetization">Monetizacion</a>
-    <a class="nav-tab" href="#deals">Analisis de Deals</a>
+    <a class="nav-tab" href="#deals">Deals</a>
     <a class="nav-tab" href="#commercial">RE Comercial</a>
-    <a class="nav-tab" href="#next-steps">Proximos Pasos</a>
+    <a class="nav-tab" href="#next-steps">Acciones</a>
   </div>
 </nav>
 
 <div class="container">
+
+<!-- ═══════════════════ KPIs ═══════════════════ -->
+<section class="section" id="kpis">
+  <div class="section-header">
+    <div class="section-icon si-gold">&#128200;</div>
+    <div class="section-title">Panel de KPIs</div>
+  </div>
+  <div class="kpi-section">
+    <div class="kpi-grid" id="kpiStatusGrid"></div>
+    <h4 style="color:#fff; font-size:15px; margin: 20px 0 12px;">Por Responsable</h4>
+    <div class="kpi-people" id="kpiPeopleGrid"></div>
+    <div class="kpi-alerts" id="kpiAlerts">
+      <h4>&#9888; Alertas &mdash; Items Atrasados</h4>
+      <div id="kpiAlertList"></div>
+    </div>
+  </div>
+</section>
 
 <!-- ═══════════════════ PUNTOS CLAVE ═══════════════════ -->
 <section class="section" id="takeaways">
@@ -639,7 +697,6 @@
     <div class="section-icon si-gold">&#127919;</div>
     <div class="section-title">Puntos Clave</div>
   </div>
-
   <div class="takeaways">
     <div class="takeaway-card tc-gold">
       <div class="tc-number">1</div>
@@ -664,9 +721,50 @@
     <div class="takeaway-card tc-orange">
       <div class="tc-number">5</div>
       <div class="tc-title">Proximos Pasos Inmediatos</div>
-      <div class="tc-text">Generar presentacion para inversionistas, conectar con abogados para documentos de oferta, llamar inversionistas brasilenos, detallar calculos de IRR este fin de semana, y construir funcion de exportar en el software.</div>
+      <div class="tc-text">Generar presentacion para inversionistas, conectar con abogados para documentos de oferta, llamar inversionistas brasilenos, detallar calculos de IRR este fin de semana.</div>
     </div>
   </div>
+  <div id="comments-takeaways"></div>
+</section>
+
+<!-- ═══════════════════ EMUNA ═══════════════════ -->
+<section class="section" id="emuna">
+  <div class="section-header">
+    <div class="section-icon si-purple">&#127959;</div>
+    <div class="section-title">Emuna &mdash; Proceso y Capacidades</div>
+    <span class="section-time">Primera parte de la reunion</span>
+  </div>
+
+  <div class="content-card">
+    <h4>&#128736; Empresa y Track Record</h4>
+    <ul>
+      <li><strong>Emuna</strong> es la empresa de construccion de lujo de Miguel Bubis, enfocada en propiedades residenciales de alto nivel en el sur de la Florida</li>
+      <li>Track record de <strong>2 casas de lujo completadas</strong> con resultados exitosos</li>
+      <li>Experiencia previa invirtiendo <strong>~$50K en documentacion legal</strong> (acuerdos operativos, KYC, SEC compliance) para el proyecto de Bellmead</li>
+      <li>Relacion con proveedores y subcontratistas establecida, permitiendo <strong>pricing competitivo</strong> en el rango de $1,000-1,300/sqft</li>
+    </ul>
+  </div>
+
+  <div class="content-card">
+    <h4>&#128295; Herramientas y Proceso de Construccion</h4>
+    <ul>
+      <li>Gestion de proyectos con herramientas digitales para <strong>seguimiento de costos, cronogramas y subcontratistas</strong></li>
+      <li>Modelo de precios integrado: terreno + soft costs (15%) + construccion + closing costs &mdash; <strong>transparencia total en cada etapa</strong></li>
+      <li>Capacidad de ejecutar desde permisos hasta entrega final, incluyendo <strong>coordinacion con arquitectos</strong> (Andres Hausmann / Housemann House)</li>
+      <li>Enfoque en <strong>calidad premium</strong> que justifica precios de salida de $3,400-5,400/sqft dependiendo de la zona</li>
+    </ul>
+  </div>
+
+  <div class="content-card">
+    <h4>&#128161; Relevancia para el Seguimiento de Belle Meade</h4>
+    <ul>
+      <li>El proceso de Emuna define el <strong>pipeline de seguimiento</strong>: identificacion del lote &rarr; analisis financiero &rarr; oferta &rarr; permisos &rarr; construccion &rarr; venta/alquiler</li>
+      <li>Integrar los precios de construccion de Emuna en el Lot Analyzer da <strong>confianza al inversionista</strong> &mdash; no es un estimado generico, es un GC con track record real</li>
+      <li>Para Belle Meade: el equipo ofrecio $6.5M (asking $7M), puede <strong>rentear la casa existente</strong> mientras se sacan permisos, construir 9,000 sqft a $1,000/sqft, salida a $2,300/sqft</li>
+      <li>Necesario: <strong>sesion detallada de fin de semana</strong> (Miguel + equipo) para auditar todos los calculos financieros antes de producir material para inversionistas</li>
+    </ul>
+  </div>
+  <div id="comments-emuna"></div>
 </section>
 
 <!-- ═══════════════════ SOFTWARE ═══════════════════ -->
@@ -676,7 +774,6 @@
     <div class="section-title">Revision del Lot Analyzer</div>
     <span class="section-time">0:00 &ndash; 15:00</span>
   </div>
-
   <div class="content-card">
     <h4>&#128172; Feedback Clave de Miguel</h4>
     <ul>
@@ -684,38 +781,37 @@
       <li>Clarificar si los costos son <strong>antes o despues de la venta</strong>, y si incluyen closing costs/comision del realtor</li>
       <li>El calculo del IRR debe incluir transparentemente <strong>TODOS los costos</strong> incluyendo closing costs y comision del realtor en la salida (~6%)</li>
       <li>Resultado critico: <strong>"Si quieres un 30% de IRR, compra el terreno a X precio"</strong></li>
-      <li>Para cada parcela (on u off market), mostrar el <strong>precio maximo para alcanzar el IRR objetivo</strong></li>
+      <li>Para cada parcela, mostrar el <strong>precio maximo para alcanzar el IRR objetivo</strong></li>
       <li>Necesita <strong>comparables de lotes junto al analisis</strong> &mdash; si el sistema dice comprar a $3.3M pero lotes cercanos se vendieron mas caro, es una bandera roja</li>
-      <li>Metrica de comparacion: <strong>"El precio de venta esta X% por encima de tu objetivo de 20% IRR"</strong> &mdash; verde = adelante, rojo = skip</li>
+      <li>Metrica de comparacion: <strong>"El precio esta X% por encima de tu objetivo de 20% IRR"</strong> &mdash; verde = adelante, rojo = skip</li>
     </ul>
   </div>
-
   <div class="content-card">
     <h4>&#9889; Vision de Automatizacion de Dylan</h4>
     <ul>
       <li>Construyo un <strong>agente de llamadas</strong> (11 Labs) para automatizar contacto con duenos de lotes</li>
-      <li>El sistema extrae informacion de contacto de duenos desde <strong>Crexie y Apollo</strong></li>
-      <li>Alertas automaticas cuando un lote baja <strong>10-15% por debajo del mediano $/sqft</strong> con informacion de contacto del dueno lista</li>
+      <li>El sistema extrae info de contacto desde <strong>Crexie y Apollo</strong></li>
+      <li>Alertas automaticas cuando un lote baja <strong>10-15% por debajo del mediano $/sqft</strong></li>
     </ul>
   </div>
-
   <div style="margin-top: 20px;">
     <h4 style="color: var(--blue); font-size: 16px; font-weight: 600; margin-bottom: 14px;">&#128736; Mejoras al Software Discutidas</h4>
     <div class="improvements">
-      <div class="improvement-item"><div class="improvement-icon">&#9998;</div> Modulo de Building Permits &mdash; extraer permisos activos y audiencias de registros de la ciudad</div>
-      <div class="improvement-item"><div class="improvement-icon">&#128274;</div> Guardar/bloquear deals para que los parametros no se reseteen al hacer clic afuera</div>
-      <div class="improvement-item"><div class="improvement-icon">&#128178;</div> Mostrar montos en dolares junto a porcentajes (soft costs, closing costs)</div>
-      <div class="improvement-item"><div class="improvement-icon">&#8596;</div> Rangos mas amplios en sliders para mercados de lujo ($2K+/sqft construccion, $10K+/sqft venta)</div>
-      <div class="improvement-item"><div class="improvement-icon">&#128506;</div> Vista 2D del mapa (no solo perspectiva 3D)</div>
+      <div class="improvement-item"><div class="improvement-icon">&#9998;</div> Modulo de Building Permits</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128274;</div> Guardar/bloquear deals</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128178;</div> Montos en dolares junto a porcentajes</div>
+      <div class="improvement-item"><div class="improvement-icon">&#8596;</div> Rangos mas amplios en sliders</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128506;</div> Vista 2D del mapa</div>
       <div class="improvement-item"><div class="improvement-icon">&#9634;</div> Mejor visualizacion de limites de lotes</div>
-      <div class="improvement-item"><div class="improvement-icon">&#128279;</div> Conexion a API del MLS para datos en vivo</div>
-      <div class="improvement-item"><div class="improvement-icon">&#128200;</div> Marcos de tiempo editables en la matriz de sensibilidad (12-36+ meses)</div>
-      <div class="improvement-item"><div class="improvement-icon">&#128270;</div> Transparencia en el calculo del IRR (mostrar la formula)</div>
-      <div class="improvement-item"><div class="improvement-icon">&#128228;</div> Links compartibles de analisis de deals</div>
-      <div class="improvement-item"><div class="improvement-icon">&#128247;</div> Imagenes de propiedades en reportes (default 3, seleccionables)</div>
-      <div class="improvement-item"><div class="improvement-icon">&#128424;</div> Exportar presentacion para inversionistas con un clic</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128279;</div> Conexion a API del MLS</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128200;</div> Marcos editables en matriz de sensibilidad</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128270;</div> Transparencia en calculo del IRR</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128228;</div> Links compartibles de deals</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128247;</div> Imagenes de propiedades en reportes</div>
+      <div class="improvement-item"><div class="improvement-icon">&#128424;</div> Exportar presentacion con un clic</div>
     </div>
   </div>
+  <div id="comments-software"></div>
 </section>
 
 <!-- ═══════════════════ MONETIZACION ═══════════════════ -->
@@ -725,164 +821,83 @@
     <div class="section-title">Estrategia de Monetizacion</div>
     <span class="section-time">8:00 &ndash; 27:00</span>
   </div>
-
   <div class="content-card">
     <h4>&#127793; Tesis Central de Miguel</h4>
     <p>El software es <strong>"espectacular"</strong> y hace al equipo 10x mejor. Sin embargo, venderlo como SaaS a $29/mes <strong>NO</strong> es donde esta el dinero &mdash; los competidores lo van a replicar en 3-6 meses. La <strong>verdadera monetizacion</strong> esta en usar el software para levantar capital para deals.</p>
   </div>
-
   <div class="content-card">
     <h4>&#128640; Modelo Propuesto</h4>
     <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-content">
-          <div class="step-title">Identificar Deal via Lot Analyzer</div>
-          <div class="step-text">Usar el analisis de la plataforma para encontrar y validar un deal con fuerte potencial de IRR.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-content">
-          <div class="step-title">Clic en "Execute" &rarr; Generar Portal de Inversionista</div>
-          <div class="step-text">Auto-generar una pagina de oferta con mapas de zona, heat maps, analisis de sensibilidad y modelo financiero.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-content">
-          <div class="step-title">Compartir Link con Inversionistas</div>
-          <div class="step-text">Los inversionistas hacen clic en el link, revisan el deal y comprometen capital. Aceptar stablecoins (USDC/Circle) por facilidad y cumplimiento.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-content">
-          <div class="step-title">Marco Legal</div>
-          <div class="step-text">Ofertas basadas en proyectos (no un fondo). Acuerdos operativos, KYC, cumplimiento SEC. Inversionistas deben ser acreditados/sofisticados. Reunion con Joey Giffner (abogado).</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">5</div>
-        <div class="step-content">
-          <div class="step-title">Primer Hito: Primer Dolar</div>
-          <div class="step-text">Conseguir UN inversionista (ej. Isaac Almosny) que comprometa $100K &rarr; prueba de concepto. Luego escalar con marketing.</div>
-        </div>
-      </div>
+      <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Identificar Deal via Lot Analyzer</div><div class="step-text">Usar el analisis de la plataforma para encontrar y validar un deal con fuerte potencial de IRR.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Clic en "Execute" &rarr; Generar Portal de Inversionista</div><div class="step-text">Auto-generar pagina de oferta con mapas, heat maps, sensibilidad y modelo financiero.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Compartir Link con Inversionistas</div><div class="step-text">Inversionistas revisan el deal y comprometen capital. Stablecoins (USDC/Circle) por facilidad.</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Marco Legal</div><div class="step-text">Ofertas basadas en proyectos. Acuerdos operativos, KYC, SEC. Inversionistas acreditados. Joey Giffner.</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Primer Hito: Primer Dolar</div><div class="step-text">UN inversionista (ej. Isaac Almosny) compromete $100K &rarr; prueba de concepto.</div></div></div>
     </div>
   </div>
-
   <div class="content-card">
     <h4>&#128170; Ventaja Competitiva</h4>
     <ul>
-      <li><strong>Incluir los precios de construccion de Emuna</strong> en la plataforma &mdash; un GC confiable con track record agrega confianza para inversionistas</li>
-      <li>Empaquetar multiples servicios: leads, group chat, comunidad, website &mdash; no solo una herramienta aislada</li>
-      <li>Conexion con API del MLS crea una ventaja de datos <strong>dificil de replicar</strong></li>
+      <li><strong>Precios de Emuna integrados</strong> &mdash; GC confiable con track record agrega confianza</li>
+      <li>Empaquetar servicios: leads, group chat, comunidad, website</li>
+      <li>Conexion con API del MLS crea ventaja de datos <strong>dificil de replicar</strong></li>
     </ul>
   </div>
+  <div id="comments-monetization"></div>
 </section>
 
-<!-- ═══════════════════ ANALISIS DE DEALS ═══════════════════ -->
+<!-- ═══════════════════ DEALS ═══════════════════ -->
 <section class="section" id="deals">
   <div class="section-header">
     <div class="section-icon si-orange">&#127968;</div>
     <div class="section-title">Analisis de Deals</div>
     <span class="section-time">27:00 &ndash; 65:00</span>
   </div>
-
   <div class="deal-grid">
-    <!-- BAY POINT -->
     <div class="deal-card featured">
       <div class="deal-badge badge-hot">&#128293; FAVORITO</div>
       <div class="deal-name">4403 Palm Lane, Bay Point</div>
       <div class="deal-stats">
-        <div class="deal-stat">
-          <div class="deal-stat-label">Precio de Venta</div>
-          <div class="deal-stat-value gold">$11M</div>
-        </div>
-        <div class="deal-stat">
-          <div class="deal-stat-label">Dias en Mercado</div>
-          <div class="deal-stat-value">88</div>
-        </div>
-        <div class="deal-stat">
-          <div class="deal-stat-label">Salida $/sqft</div>
-          <div class="deal-stat-value green">$3,400-3,600</div>
-        </div>
-        <div class="deal-stat">
-          <div class="deal-stat-label">Tamano a Construir</div>
-          <div class="deal-stat-value">9,000 sqft</div>
-        </div>
+        <div class="deal-stat"><div class="deal-stat-label">Precio</div><div class="deal-stat-value gold">$11M</div></div>
+        <div class="deal-stat"><div class="deal-stat-label">Dias en Mercado</div><div class="deal-stat-value">88</div></div>
+        <div class="deal-stat"><div class="deal-stat-label">Salida $/sqft</div><div class="deal-stat-value green">$3,400-3,600</div></div>
+        <div class="deal-stat"><div class="deal-stat-label">Construccion</div><div class="deal-stat-value">9,000 sqft</div></div>
       </div>
-      <div class="deal-notes">
-        <strong>Veredicto de Miguel:</strong> "Esto es un jamon" &mdash; mas exclusivo/privado que Venetian Islands. Ideal para familias y profesionales.
-        Comps de Morningside activos a $4,700-5,400/sqft. Casa actual es para demoler. <strong>Necesitamos levantar $5M y movernos rapido.</strong>
-      </div>
+      <div class="deal-notes"><strong>Veredicto de Miguel:</strong> "Esto es un jamon" &mdash; mas exclusivo que Venetian Islands. Comps activos a $4,700-5,400/sqft. <strong>Levantar $5M y movernos rapido.</strong></div>
     </div>
-
-    <!-- VENETIAN -->
     <div class="deal-card">
       <div class="deal-badge badge-review">&#128269; REQUIERE REVISION</div>
       <div class="deal-name">1234 S. Venetian Way</div>
       <div class="deal-stats">
-        <div class="deal-stat">
-          <div class="deal-stat-label">Precio del Lote</div>
-          <div class="deal-stat-value">$2.5M</div>
-        </div>
-        <div class="deal-stat">
-          <div class="deal-stat-label">Tamano del Lote</div>
-          <div class="deal-stat-value">13,300 sqft</div>
-        </div>
-        <div class="deal-stat">
-          <div class="deal-stat-label">Venta Objetivo</div>
-          <div class="deal-stat-value">$4,000/sqft</div>
-        </div>
-        <div class="deal-stat">
-          <div class="deal-stat-label">Tamano a Construir</div>
-          <div class="deal-stat-value">9,000 sqft</div>
-        </div>
+        <div class="deal-stat"><div class="deal-stat-label">Lote</div><div class="deal-stat-value">$2.5M</div></div>
+        <div class="deal-stat"><div class="deal-stat-label">Tamano</div><div class="deal-stat-value">13,300 sqft</div></div>
+        <div class="deal-stat"><div class="deal-stat-label">Venta Objetivo</div><div class="deal-stat-value">$4,000/sqft</div></div>
+        <div class="deal-stat"><div class="deal-stat-label">Construccion</div><div class="deal-stat-value">9,000 sqft</div></div>
       </div>
-      <div class="deal-notes">
-        <strong>Problemas:</strong> Jurisdiccion de City of Miami (no Miami Beach &mdash; no se pueden usar comps de San Marino). Edificio a 235ft afecta la privacidad. Pin del mapa en lote equivocado. Calidad de comparables cuestionable.
-      </div>
+      <div class="deal-notes"><strong>Problemas:</strong> City of Miami (no Miami Beach). Edificio a 235ft afecta privacidad. Pin del mapa en lote equivocado.</div>
     </div>
-
-    <!-- BELLMEAD -->
     <div class="deal-card">
       <div class="deal-badge badge-off">&#128230; OFF MARKET</div>
       <div class="deal-name">7308 Bellmead</div>
       <div class="deal-stats">
-        <div class="deal-stat">
-          <div class="deal-stat-label">Precio de Venta</div>
-          <div class="deal-stat-value">~$7M</div>
-        </div>
-        <div class="deal-stat">
-          <div class="deal-stat-label">Oferta del Equipo</div>
-          <div class="deal-stat-value">$6.5M</div>
-        </div>
-        <div class="deal-stat">
-          <div class="deal-stat-label">Objetivo de Venta</div>
-          <div class="deal-stat-value">$2,300/sqft</div>
-        </div>
-        <div class="deal-stat">
-          <div class="deal-stat-label">Tamano del Lote</div>
-          <div class="deal-stat-value">16,000 sqft</div>
-        </div>
+        <div class="deal-stat"><div class="deal-stat-label">Precio</div><div class="deal-stat-value">~$7M</div></div>
+        <div class="deal-stat"><div class="deal-stat-label">Oferta</div><div class="deal-stat-value">$6.5M</div></div>
+        <div class="deal-stat"><div class="deal-stat-label">Salida</div><div class="deal-stat-value">$2,300/sqft</div></div>
+        <div class="deal-stat"><div class="deal-stat-label">Lote</div><div class="deal-stat-value">16,000 sqft</div></div>
       </div>
-      <div class="deal-notes">
-        <strong>Notas:</strong> Equity Required mostrando $10M pero deberia ser ~$8-8.5M (error en calculo de closing costs). Se puede alquilar la casa existente mientras se sacan permisos. Sesion de fin de semana para detallar calculos.
-      </div>
+      <div class="deal-notes"><strong>Notas:</strong> Equity Required mostrando $10M, deberia ser ~$8.5M. Se puede alquilar la casa mientras se sacan permisos.</div>
     </div>
   </div>
-
-  <h4 style="color: var(--red); font-size: 16px; font-weight: 600; margin: 24px 0 14px;">&#9888; Problemas Identificados en los Deals</h4>
+  <h4 style="color: var(--red); font-size: 16px; font-weight: 600; margin: 24px 0 14px;">&#9888; Problemas Identificados</h4>
   <div class="issues-grid">
-    <div class="issue-item"><strong>Jurisdiccion:</strong> El comp de San Marino es Miami Beach; la propiedad es City of Miami &mdash; precios no son comparables</div>
-    <div class="issue-item"><strong>Precision del mapa:</strong> El sistema puso el marcador en el lote equivocado &mdash; necesitamos limites de parcelas mas claros</div>
-    <div class="issue-item"><strong>Calculo de equity:</strong> El calculo de closing costs parece muy alto, inflando el Equity Required</div>
-    <div class="issue-item"><strong>Proximidad de edificio:</strong> Edificio a 235ft impacta la privacidad y el valor</div>
-    <div class="issue-item"><strong>Calidad de comps:</strong> Datos del MLS no actualizados para construcciones nuevas &mdash; muestra sqft de la casa vieja</div>
-    <div class="issue-item"><strong>Timing de sensibilidad:</strong> Default de 21 meses es poco realista para muchos proyectos</div>
+    <div class="issue-item"><strong>Jurisdiccion:</strong> Comp de San Marino es Miami Beach; propiedad es City of Miami</div>
+    <div class="issue-item"><strong>Mapa:</strong> Marcador en lote equivocado, limites poco claros</div>
+    <div class="issue-item"><strong>Equity:</strong> Closing costs inflados, distorsionando Equity Required</div>
+    <div class="issue-item"><strong>Edificio:</strong> A 235ft impacta privacidad y valor</div>
+    <div class="issue-item"><strong>Comps:</strong> MLS muestra sqft de casa vieja, no construccion nueva</div>
+    <div class="issue-item"><strong>Timing:</strong> Default de 21 meses poco realista para muchos proyectos</div>
   </div>
+  <div id="comments-deals"></div>
 </section>
 
 <!-- ═══════════════════ RE COMERCIAL ═══════════════════ -->
@@ -892,41 +907,15 @@
     <div class="section-title">Estrategia de RE Comercial</div>
     <span class="section-time">65:00 &ndash; 82:00</span>
   </div>
-
   <div class="content-card">
     <h4>&#127959; Modelo de Strip Mall de Miguel</h4>
     <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-content">
-          <div class="step-title">Adquirir Activo en Distress</div>
-          <div class="step-text">Comprar un strip mall deteriorado ~$1M. 60/40 LTV &mdash; $400K de equity, $600K de prestamo al 7%, plazo de 7-8 anos.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-content">
-          <div class="step-title">Mejorar y Asegurar Credit Tenants</div>
-          <div class="step-text">Invertir ~$100K en mejoras. LA CLAVE: reemplazar inquilinos de baja calidad con Starbucks, Wells Fargo, Bank of America. Mismo alquiler, pero el cap rate baja de 7-8% a 5% &mdash; <strong>el valor de la propiedad se duplica.</strong></div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-content">
-          <div class="step-title">Refinanciar y Devolver Equity</div>
-          <div class="step-text">Refinanciar cada 2-3 anos. Cada refinanciamiento devuelve ~40% del equity ($200K). Despues de 3 refinanciamientos: todo el dinero original del inversionista devuelto.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-content">
-          <div class="step-title">Flujo de Caja Pasivo Permanente</div>
-          <div class="step-text">El activo genera ingresos continuos con manejo minimo. Contratos triple net en out parcels = cero dolores de cabeza.</div>
-        </div>
-      </div>
+      <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Adquirir Activo en Distress</div><div class="step-text">Strip mall ~$1M. 60/40 LTV &mdash; $400K equity, $600K prestamo al 7%.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Mejorar y Asegurar Credit Tenants</div><div class="step-text">~$100K en mejoras. Reemplazar inquilinos con Starbucks, Wells Fargo, BofA. Cap rate baja de 7-8% a 5% &mdash; <strong>valor se duplica.</strong></div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Refinanciar y Devolver Equity</div><div class="step-text">Cada 2-3 anos. Despues de 3 refinanciamientos: todo el equity original devuelto.</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Flujo de Caja Pasivo</div><div class="step-text">Triple net, cero dolores de cabeza. Ingreso continuo con manejo minimo.</div></div></div>
     </div>
   </div>
-
   <div class="waterfall">
     <h4>&#128184; Estructura Waterfall</h4>
     <div class="waterfall-row">
@@ -945,61 +934,436 @@
       </div>
     </div>
     <p style="margin-top: 16px; font-size: 13px; color: var(--text-muted);">
-      <strong style="color:var(--green);">Insight Clave:</strong> Asegurar el credit tenant ANTES de renovar. Renovar segun sus especificaciones. Conseguir un contrato de 10 anos &rarr; el valor de la propiedad sube inmediatamente. La ganancia esta en el refinanciamiento, no en la renta.
+      <strong style="color:var(--green);">Insight Clave:</strong> Asegurar el credit tenant ANTES de renovar. Contrato de 10 anos &rarr; valor sube inmediatamente. La ganancia esta en el refinanciamiento.
     </p>
   </div>
-
   <div class="content-card">
     <h4>&#127917; Hotel The Lauderdale &mdash; Prueba de Automatizacion</h4>
-    <p>El hotel de Noel funciona casi totalmente automatizado: call center con IA maneja disputas de Airbnb, property manager part-time ($3K/mes), estados financieros automatizados. Noel no ha visitado en 6 meses. Cero contacto con clientes requerido. El modelo valida la tesis de RE comercial de bajo mantenimiento.</p>
+    <p>El hotel de Noel funciona casi totalmente automatizado: call center con IA para disputas de Airbnb, property manager part-time ($3K/mes), estados financieros automatizados. No ha visitado en 6 meses. Valida la tesis de RE comercial de bajo mantenimiento.</p>
   </div>
+  <div id="comments-commercial"></div>
 </section>
 
-<!-- ═══════════════════ PROXIMOS PASOS ═══════════════════ -->
+<!-- ═══════════════════ ACCIONES ═══════════════════ -->
 <section class="section" id="next-steps">
   <div class="section-header">
     <div class="section-icon si-green">&#9989;</div>
     <div class="section-title">Acciones y Proximos Pasos</div>
   </div>
-
-  <div class="actions">
-    <div class="action-item"><strong>Bay Point:</strong> Contactar a Alzaia para asistir con la compra. Iniciar contacto con inversionistas (grupo brasileno). Objetivo: levantar $5M.</div>
-    <div class="action-item"><strong>Presentacion para Inversionistas:</strong> Generar deck de 5 paginas desde el software (disclaimer, oportunidad, zona, financieros, equity, equipo). Usar deck de Bellmead como plantilla.</div>
-    <div class="action-item"><strong>Legal:</strong> Reunirse con Joey Giffner (o equivalente) para preparar acuerdos operativos, KYC y documentos de oferta cumpliendo con SEC.</div>
-    <div class="action-item"><strong>Revision Detallada de IRR:</strong> Miguel + equipo se sientan este fin de semana para auditar todos los calculos financieros en detalle.</div>
-    <div class="action-item"><strong>Exportar desde Software:</strong> Construir funcionalidad de reporte para inversionistas con un clic. Conectar a Gamma para auto-formateo.</div>
-    <div class="action-item"><strong>Correcciones al Software:</strong> Arreglar calculo de equity, ampliar sliders, agregar montos en dolares junto a %, mejorar limites de lotes, agregar vista 2D.</div>
-    <div class="action-item"><strong>Building Permits:</strong> Agregar modulo para extraer permisos activos y audiencias de registros de la ciudad de Miami-Dade.</div>
-    <div class="action-item"><strong>RE Comercial:</strong> Asistir a reunion con el fund manager de $50M en out parcels. Explorar oportunidades de adquisicion de strip malls.</div>
+  <div class="action-table-wrap" style="overflow-x:auto;">
+    <table class="action-table" id="actionTable">
+      <thead>
+        <tr>
+          <th style="width:40%">Accion</th>
+          <th style="width:15%">Responsable</th>
+          <th style="width:15%">Deadline</th>
+          <th style="width:18%">Status</th>
+          <th style="width:12%">Dias</th>
+        </tr>
+      </thead>
+      <tbody id="actionBody"></tbody>
+    </table>
   </div>
+  <div id="comments-next-steps"></div>
 </section>
 
 </div>
 
-<!-- ═══════════════════ JS ═══════════════════ -->
+<!-- ═══════════════════ FIREBASE SDK ═══════════════════ -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
 <script>
-  const tabs = document.querySelectorAll('.nav-tab');
-  const sections = [];
-  tabs.forEach(tab => {
-    const id = tab.getAttribute('href')?.replace('#', '');
-    if (id) sections.push({ id, el: document.getElementById(id), tab });
-  });
-  function updateActive() {
-    let current = sections[0];
-    for (const s of sections) {
-      if (s.el && s.el.getBoundingClientRect().top <= 100) current = s;
-    }
-    tabs.forEach(t => t.classList.remove('active'));
-    if (current?.tab) current.tab.classList.add('active');
+// ════════════════════════════════════════
+// CONFIG — Replace with your Firebase project config
+// ════════════════════════════════════════
+const FIREBASE_CONFIG = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+  projectId: "YOUR_PROJECT",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "000000000000",
+  appId: "YOUR_APP_ID"
+};
+
+// ════════════════════════════════════════
+// STORAGE LAYER (Firebase w/ localStorage fallback)
+// ════════════════════════════════════════
+let db = null;
+let useFirebase = false;
+
+try {
+  if (FIREBASE_CONFIG.apiKey !== "YOUR_API_KEY") {
+    firebase.initializeApp(FIREBASE_CONFIG);
+    db = firebase.database();
+    useFirebase = true;
   }
-  window.addEventListener('scroll', updateActive, { passive: true });
-  tabs.forEach(tab => {
-    tab.addEventListener('click', e => {
-      e.preventDefault();
-      const id = tab.getAttribute('href')?.replace('#', '');
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+} catch(e) {
+  console.warn('Firebase not configured, using localStorage fallback.');
+}
+
+const Storage = {
+  _local(key) { try { return JSON.parse(localStorage.getItem('mr_' + key)) } catch { return null } },
+  _setLocal(key, val) { localStorage.setItem('mr_' + key, JSON.stringify(val)) },
+
+  get(path, cb) {
+    if (useFirebase) {
+      db.ref(path).on('value', snap => cb(snap.val()));
+    } else {
+      cb(this._local(path.replace(/\//g, '_')));
+    }
+  },
+  set(path, val) {
+    if (useFirebase) {
+      db.ref(path).set(val);
+    }
+    this._setLocal(path.replace(/\//g, '_'), val);
+  },
+  push(path, val) {
+    if (useFirebase) {
+      db.ref(path).push(val);
+    } else {
+      const key = path.replace(/\//g, '_');
+      const arr = this._local(key) || [];
+      val._id = Date.now() + '_' + Math.random().toString(36).slice(2,6);
+      arr.push(val);
+      this._setLocal(key, arr);
+    }
+  },
+  listen(path, cb) {
+    if (useFirebase) {
+      db.ref(path).on('value', snap => {
+        const val = snap.val();
+        cb(val ? Object.values(val) : []);
+      });
+    } else {
+      cb(this._local(path.replace(/\//g, '_')) || []);
+      // Poll for local changes
+      setInterval(() => {
+        cb(this._local(path.replace(/\//g, '_')) || []);
+      }, 2000);
+    }
+  }
+};
+
+// ════════════════════════════════════════
+// USER / LOGIN
+// ════════════════════════════════════════
+const PEOPLE = [
+  { first: 'Dylan', last: 'Poler', initials: 'DP', cls: 'av-poler' },
+  { first: 'Kevin', last: 'Poler', initials: 'KP', cls: 'av-poler' },
+  { first: 'Noel', last: 'Poler', initials: 'NP', cls: 'av-poler' },
+  { first: 'Miguel', last: 'Bubis', initials: 'MB', cls: 'av-emuna' },
+  { first: 'Andres', last: 'Hausmann', initials: 'AH', cls: 'av-house' },
+];
+
+let currentUser = null;
+
+function login(first, last, initials, cls) {
+  currentUser = { first, last, initials, cls, name: first + ' ' + last.charAt(0) + '.' };
+  localStorage.setItem('mr_user', JSON.stringify(currentUser));
+  document.getElementById('loginOverlay').classList.add('hidden');
+  showUserBar();
+}
+
+function logout() {
+  currentUser = null;
+  localStorage.removeItem('mr_user');
+  document.getElementById('loginOverlay').classList.remove('hidden');
+  document.getElementById('userBar').classList.add('hidden');
+}
+
+function showUserBar() {
+  if (!currentUser) return;
+  const bar = document.getElementById('userBar');
+  bar.classList.remove('hidden');
+  document.getElementById('userBarAvatar').className = 'user-bar-avatar ' + currentUser.cls;
+  document.getElementById('userBarAvatar').textContent = currentUser.initials;
+  document.getElementById('userBarName').textContent = currentUser.name;
+}
+
+// Auto-login from localStorage
+const saved = localStorage.getItem('mr_user');
+if (saved) {
+  try {
+    currentUser = JSON.parse(saved);
+    document.getElementById('loginOverlay').classList.add('hidden');
+    showUserBar();
+  } catch(e) {}
+}
+
+// ════════════════════════════════════════
+// DEFAULT ACTION ITEMS
+// ════════════════════════════════════════
+const DEFAULT_ACTIONS = [
+  { id: 'a1', text: '<strong>Bay Point:</strong> Contactar a Alzaia para asistir con la compra', responsible: 'Miguel', deadline: '', status: 'no_iniciado' },
+  { id: 'a2', text: '<strong>Bay Point:</strong> Iniciar contacto con inversionistas brasilenos. Levantar $5M', responsible: 'Miguel', deadline: '', status: 'no_iniciado' },
+  { id: 'a3', text: '<strong>Presentacion:</strong> Generar deck para inversionistas desde el software (usar plantilla Bellmead)', responsible: 'Dylan', deadline: '', status: 'no_iniciado' },
+  { id: 'a4', text: '<strong>Legal:</strong> Reunirse con Joey Giffner para acuerdos operativos, KYC y docs SEC', responsible: 'Miguel', deadline: '', status: 'no_iniciado' },
+  { id: 'a5', text: '<strong>IRR:</strong> Sesion detallada de fin de semana para auditar calculos financieros', responsible: 'Miguel', deadline: '2026-03-01', status: 'no_iniciado' },
+  { id: 'a6', text: '<strong>Software:</strong> Exportar presentacion con un clic + conectar a Gamma', responsible: 'Dylan', deadline: '', status: 'no_iniciado' },
+  { id: 'a7', text: '<strong>Software:</strong> Transparencia en IRR, desglose de costos, sliders ampliados', responsible: 'Dylan', deadline: '', status: 'no_iniciado' },
+  { id: 'a8', text: '<strong>Software:</strong> Vista 2D, limites de lotes, guardar/bloquear deals', responsible: 'Dylan', deadline: '', status: 'no_iniciado' },
+  { id: 'a9', text: '<strong>Building Permits:</strong> Agregar modulo de permisos de Miami-Dade', responsible: 'Dylan', deadline: '', status: 'no_iniciado' },
+  { id: 'a10', text: '<strong>Portal:</strong> Construir funcionalidad de portal de inversionistas', responsible: 'Dylan', deadline: '', status: 'no_iniciado' },
+  { id: 'a11', text: '<strong>RE Comercial:</strong> Asistir a reunion con fund manager de $50M en out parcels', responsible: 'Kevin', deadline: '', status: 'no_iniciado' },
+  { id: 'a12', text: '<strong>RE Comercial:</strong> Explorar adquisiciones de strip malls en distress', responsible: 'Miguel', deadline: '', status: 'no_iniciado' },
+];
+
+let actions = [];
+
+function initActions() {
+  Storage.get('actions', (data) => {
+    if (data && (Array.isArray(data) ? data.length > 0 : Object.keys(data).length > 0)) {
+      actions = Array.isArray(data) ? data : Object.values(data);
+    } else {
+      actions = JSON.parse(JSON.stringify(DEFAULT_ACTIONS));
+      Storage.set('actions', actions);
+    }
+    renderActions();
+    renderKPIs();
+  });
+
+  if (useFirebase) {
+    db.ref('actions').on('value', snap => {
+      const val = snap.val();
+      if (val) {
+        actions = Array.isArray(val) ? val : Object.values(val);
+        renderActions();
+        renderKPIs();
+      }
+    });
+  }
+}
+
+const STATUS_LABELS = {
+  'no_iniciado': 'No Iniciado',
+  'en_progreso': 'En Progreso',
+  'en_espera': 'En Espera',
+  'completado': 'Completado'
+};
+
+function calcDays(deadline, status) {
+  if (!deadline) return { text: '—', cls: 'days-done' };
+  if (status === 'completado' || status === 'en_espera') return { text: '—', cls: 'days-done' };
+  const today = new Date(); today.setHours(0,0,0,0);
+  const dl = new Date(deadline + 'T00:00:00');
+  const diff = Math.round((dl - today) / 86400000);
+  if (diff < 0) return { text: Math.abs(diff) + 'd atraso', cls: 'days-overdue' };
+  if (diff <= 3) return { text: diff + 'd', cls: 'days-warn' };
+  return { text: diff + 'd', cls: 'days-ok' };
+}
+
+function renderActions() {
+  const tbody = document.getElementById('actionBody');
+  tbody.innerHTML = '';
+  actions.forEach((a, i) => {
+    const days = calcDays(a.deadline, a.status);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="action-text">${a.text}</td>
+      <td>
+        <select class="action-select" onchange="updateAction(${i},'responsible',this.value)">
+          ${PEOPLE.map(p => `<option value="${p.first}" ${a.responsible===p.first?'selected':''}>${p.first} ${p.last.charAt(0)}.</option>`).join('')}
+        </select>
+      </td>
+      <td><input type="date" class="action-date" value="${a.deadline||''}" onchange="updateAction(${i},'deadline',this.value)"></td>
+      <td>
+        <select class="action-select status-${a.status}" onchange="updateAction(${i},'status',this.value)">
+          ${Object.entries(STATUS_LABELS).map(([k,v]) => `<option value="${k}" ${a.status===k?'selected':''}>${v}</option>`).join('')}
+        </select>
+      </td>
+      <td><span class="days-badge ${days.cls}">${days.text}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function updateAction(idx, field, value) {
+  actions[idx][field] = value;
+  Storage.set('actions', actions);
+  renderActions();
+  renderKPIs();
+}
+
+// ════════════════════════════════════════
+// KPIs
+// ════════════════════════════════════════
+function renderKPIs() {
+  // By status
+  const counts = { no_iniciado: 0, en_progreso: 0, en_espera: 0, completado: 0 };
+  const byPerson = {};
+  const overdue = [];
+
+  PEOPLE.forEach(p => { byPerson[p.first] = { total: 0, ...counts }; });
+
+  actions.forEach(a => {
+    counts[a.status] = (counts[a.status] || 0) + 1;
+    if (byPerson[a.responsible]) {
+      byPerson[a.responsible].total++;
+      byPerson[a.responsible][a.status] = (byPerson[a.responsible][a.status] || 0) + 1;
+    }
+    if (a.deadline && a.status !== 'completado' && a.status !== 'en_espera') {
+      const today = new Date(); today.setHours(0,0,0,0);
+      const dl = new Date(a.deadline + 'T00:00:00');
+      const diff = Math.round((dl - today) / 86400000);
+      if (diff < 0) overdue.push({ text: a.text.replace(/<[^>]*>/g, ''), days: Math.abs(diff), responsible: a.responsible });
+    }
+  });
+
+  document.getElementById('kpiStatusGrid').innerHTML = `
+    <div class="kpi-card"><div class="kpi-value kpi-status-ns">${counts.no_iniciado}</div><div class="kpi-label">No Iniciado</div></div>
+    <div class="kpi-card"><div class="kpi-value kpi-status-ip">${counts.en_progreso}</div><div class="kpi-label">En Progreso</div></div>
+    <div class="kpi-card"><div class="kpi-value kpi-status-sb">${counts.en_espera}</div><div class="kpi-label">En Espera</div></div>
+    <div class="kpi-card"><div class="kpi-value kpi-status-co">${counts.completado}</div><div class="kpi-label">Completado</div></div>
+  `;
+
+  const colors = { no_iniciado: 'var(--text-muted)', en_progreso: 'var(--blue)', en_espera: 'var(--orange)', completado: 'var(--green)' };
+  document.getElementById('kpiPeopleGrid').innerHTML = PEOPLE.map(p => {
+    const d = byPerson[p.first];
+    if (!d || d.total === 0) return '';
+    const barSegs = Object.entries(colors).map(([s,c]) => {
+      const pct = d.total > 0 ? (d[s] || 0) / d.total * 100 : 0;
+      return pct > 0 ? `<div class="kpi-bar-seg" style="width:${pct}%;background:${c}"></div>` : '';
+    }).join('');
+    return `
+      <div class="kpi-person-card">
+        <div class="kpi-person-avatar ${p.cls}">${p.initials}</div>
+        <div style="flex:1">
+          <div class="kpi-person-name">${p.first} ${p.last.charAt(0)}.</div>
+          <div class="kpi-person-count">${d.total} items</div>
+          <div class="kpi-person-bar">${barSegs}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const alertDiv = document.getElementById('kpiAlertList');
+  if (overdue.length === 0) {
+    alertDiv.innerHTML = '<div class="kpi-no-alerts">&#10003; Sin items atrasados</div>';
+  } else {
+    alertDiv.innerHTML = overdue.map(o => `
+      <div class="kpi-alert-item">
+        <span>${o.text.substring(0, 60)}${o.text.length > 60 ? '...' : ''} (${o.responsible})</span>
+        <span class="kpi-alert-days">${o.days}d atraso</span>
+      </div>
+    `).join('');
+  }
+}
+
+// ════════════════════════════════════════
+// COMMENTS
+// ════════════════════════════════════════
+const COMMENT_SECTIONS = ['takeaways', 'emuna', 'software', 'monetization', 'deals', 'commercial', 'next-steps'];
+
+function initComments() {
+  COMMENT_SECTIONS.forEach(section => {
+    const container = document.getElementById('comments-' + section);
+    if (!container) return;
+    container.innerHTML = `
+      <div style="margin-top:16px;">
+        <button class="comments-toggle" onclick="toggleComments('${section}')">
+          &#128172; <span id="comment-count-${section}">0</span> comentarios
+        </button>
+        <div class="comments-area" id="comments-area-${section}">
+          <div class="comment-thread" id="comment-thread-${section}"></div>
+          <div class="comment-input-row">
+            <textarea class="comment-input" id="comment-input-${section}" placeholder="Escribe un comentario..." rows="1"></textarea>
+            <button class="comment-submit" onclick="addComment('${section}')">Enviar</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    Storage.listen('comments/' + section, (comments) => {
+      renderComments(section, comments);
     });
   });
+}
+
+function toggleComments(section) {
+  const area = document.getElementById('comments-area-' + section);
+  area.classList.toggle('open');
+}
+
+function renderComments(section, comments) {
+  const thread = document.getElementById('comment-thread-' + section);
+  const count = document.getElementById('comment-count-' + section);
+  if (!thread) return;
+  count.textContent = comments.length;
+  thread.innerHTML = comments.map(c => {
+    const p = PEOPLE.find(p => p.first === c.author) || { initials: '?', cls: 'av-poler' };
+    const date = new Date(c.timestamp);
+    const timeStr = date.toLocaleDateString('es', { day: 'numeric', month: 'short' }) + ' ' + date.toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' });
+    return `
+      <div class="comment-item">
+        <div class="comment-avatar ${p.cls}">${p.initials}</div>
+        <div class="comment-body">
+          <div class="comment-meta"><strong>${c.author}</strong> &middot; ${timeStr}</div>
+          <div class="comment-text">${escapeHtml(c.text)}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function addComment(section) {
+  if (!currentUser) { alert('Inicia sesion para comentar'); return; }
+  const input = document.getElementById('comment-input-' + section);
+  const text = input.value.trim();
+  if (!text) return;
+  Storage.push('comments/' + section, {
+    author: currentUser.first,
+    text: text,
+    timestamp: Date.now()
+  });
+  input.value = '';
+  // For localStorage mode, re-render
+  if (!useFirebase) {
+    const key = 'comments/' + section;
+    const arr = Storage._local(key.replace(/\//g, '_')) || [];
+    renderComments(section, arr);
+  }
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// ════════════════════════════════════════
+// NAV TABS
+// ════════════════════════════════════════
+const tabs = document.querySelectorAll('.nav-tab');
+const sectionEls = [];
+tabs.forEach(tab => {
+  const id = tab.getAttribute('href')?.replace('#', '');
+  if (id) sectionEls.push({ id, el: document.getElementById(id), tab });
+});
+function updateActive() {
+  let current = sectionEls[0];
+  for (const s of sectionEls) {
+    if (s.el && s.el.getBoundingClientRect().top <= 100) current = s;
+  }
+  tabs.forEach(t => t.classList.remove('active'));
+  if (current?.tab) current.tab.classList.add('active');
+}
+window.addEventListener('scroll', updateActive, { passive: true });
+tabs.forEach(tab => {
+  tab.addEventListener('click', e => {
+    e.preventDefault();
+    const id = tab.getAttribute('href')?.replace('#', '');
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// ════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════
+initActions();
+initComments();
 </script>
 
 </body>
