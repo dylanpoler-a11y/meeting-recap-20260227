@@ -1450,6 +1450,7 @@ function formatHistoryValue(field, val) {
   if (!val) return '(vacio)';
   if (field === 'status') return STATUS_LABELS[val] || val;
   if (field === 'text') return val.replace(/<[^>]*>/g, '').substring(0, 60) + (val.length > 60 ? '...' : '');
+  if (field === 'contenido') return val.substring(0, 80) + (val.length > 80 ? '...' : '');
   return val;
 }
 
@@ -1700,8 +1701,8 @@ function initEditableContent() {
   // Load saved edits
   Storage.get('contentEdits', (data) => {
     contentEdits = data || {};
-    applyEdits();
-    markEditableElements();
+    markEditableElements();  // FIRST: assign data-eid to all elements
+    applyEdits();            // THEN: apply saved overrides to those elements
   });
   if (useFirebase) {
     db.ref('contentEdits').on('value', snap => {
@@ -1782,11 +1783,11 @@ function startEditContent(el) {
       contentEdits[eid] = val;
       Storage.set('contentEdits', contentEdits);
 
-      // Log to history
+      // Log to history — pass full text, truncate only for display
       const section = el.closest('.section');
       const sectionName = section ? (section.querySelector('.section-title')?.textContent || 'Seccion') : 'Contenido';
-      const oldPlain = currentHtml.replace(/<[^>]*>/g, '').substring(0, 50);
-      const newPlain = val.replace(/<[^>]*>/g, '').substring(0, 50);
+      const oldPlain = currentHtml.replace(/<[^>]*>/g, '');
+      const newPlain = val.replace(/<[^>]*>/g, '');
       logHistory('contenido', oldPlain, newPlain, sectionName);
     } else {
       el.innerHTML = currentHtml;
