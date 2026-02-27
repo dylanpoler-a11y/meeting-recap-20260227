@@ -706,15 +706,41 @@
     padding: 2px 6px; border-radius: 3px;
     margin-bottom: 4px;
   }
-  .history-item-change { color: var(--text-muted); line-height: 1.5; }
+  .history-item-change {
+    color: var(--text-muted); line-height: 1.5;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 6px 8px;
+    margin-top: 4px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.15s;
+  }
+  .history-item-change:hover { background: rgba(255,255,255,0.05); }
+  .history-item-change .expand-hint {
+    font-size: 10px; color: var(--gold); opacity: 0.6;
+    margin-top: 4px; display: block;
+  }
+  .history-item-change.expanded .expand-hint { display: none; }
   .history-item-old {
     text-decoration: line-through;
     color: rgba(248,113,113,0.7);
     font-size: 12px;
+    display: block;
+    margin-bottom: 4px;
+    word-break: break-word;
   }
   .history-item-new {
     color: var(--green);
     font-size: 12px;
+    display: block;
+    word-break: break-word;
+  }
+  .history-item-arrow {
+    color: var(--text-muted);
+    font-size: 10px;
+    margin-bottom: 4px;
+    display: block;
   }
   .history-item-action-label {
     color: var(--text-muted);
@@ -1495,10 +1521,15 @@ function renderHistory() {
 
   // Show newest first
   const sorted = [...historyLog].reverse();
-  body.innerHTML = sorted.map(h => {
+  body.innerHTML = sorted.map((h, i) => {
     const p = PEOPLE.find(p => p.first === h.user) || { initials: '?', cls: 'av-poler' };
     const date = new Date(h.timestamp);
     const timeStr = date.toLocaleDateString('es', { day: 'numeric', month: 'short' }) + ' ' + date.toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' });
+    const oldFull = escapeHtml(h.oldVal || '(vacio)');
+    const newFull = escapeHtml(h.newVal || '(vacio)');
+    const oldShort = escapeHtml(formatHistoryValue(h.field, h.oldVal));
+    const newShort = escapeHtml(formatHistoryValue(h.field, h.newVal));
+    const isLong = (h.oldVal && h.oldVal.length > 80) || (h.newVal && h.newVal.length > 80);
     return `
       <div class="history-item">
         <div class="history-item-header">
@@ -1508,10 +1539,11 @@ function renderHistory() {
         </div>
         <div class="history-item-action-label">${escapeHtml(h.actionLabel || '')}</div>
         <span class="history-item-field">${FIELD_LABELS[h.field] || h.field}</span>
-        <div class="history-item-change">
-          <span class="history-item-old">${escapeHtml(formatHistoryValue(h.field, h.oldVal))}</span>
-          &rarr;
-          <span class="history-item-new">${escapeHtml(formatHistoryValue(h.field, h.newVal))}</span>
+        <div class="history-item-change" onclick="toggleHistoryExpand(this)" data-old-full="${oldFull.replace(/"/g, '&quot;')}" data-new-full="${newFull.replace(/"/g, '&quot;')}" data-old-short="${oldShort.replace(/"/g, '&quot;')}" data-new-short="${newShort.replace(/"/g, '&quot;')}">
+          <span class="history-item-old">${oldShort}</span>
+          <span class="history-item-arrow">↓</span>
+          <span class="history-item-new">${newShort}</span>
+          ${isLong ? '<span class="expand-hint">clic para ver completo</span>' : ''}
         </div>
       </div>
     `;
@@ -1525,6 +1557,19 @@ function toggleHistory() {
     historySeenCount = historyLog.length;
     localStorage.setItem('mr_history_seen', historySeenCount.toString());
     document.getElementById('historyBadge').textContent = '';
+  }
+}
+
+function toggleHistoryExpand(el) {
+  const isExpanded = el.classList.toggle('expanded');
+  const oldSpan = el.querySelector('.history-item-old');
+  const newSpan = el.querySelector('.history-item-new');
+  if (isExpanded) {
+    oldSpan.textContent = el.dataset.oldFull;
+    newSpan.textContent = el.dataset.newFull;
+  } else {
+    oldSpan.textContent = el.dataset.oldShort;
+    newSpan.textContent = el.dataset.newShort;
   }
 }
 
